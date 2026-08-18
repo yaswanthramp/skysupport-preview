@@ -1498,6 +1498,31 @@ a.dropdown { text-decoration: none; }
 }
 .sign-row:first-child { border-top: 0; }
 
+/* Page tab bar needs air before the underline tabs below it, or the two
+   levels read as one crowded control. */
+.seg-tabs.page-tabs { margin-bottom: var(--space-5); }
+.seg-tabs.page-tabs + .tab-nav { margin-top: 0; }
+
+/* ---- Row action menu -------------------------------------- */
+.menu-anchor { position: relative; display: inline-flex; }
+.row-menu {
+  position: absolute; right: 0; top: calc(100% + var(--space-1));
+  z-index: 60; width: 200px; padding: var(--space-1);
+}
+.row-menu[hidden] { display: none; }
+
+/* ---- Wizard step panels ----------------------------------- */
+.wz-panel[hidden] { display: none; }
+.wz-step { cursor: pointer; }
+.wz-step:hover .wz-label { color: var(--fg-high); }
+
+/* ---- Send gift card summary ------------------------------- */
+.gift-summary {
+  border-radius: var(--radius-4); background: var(--gray-2);
+  padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);
+}
+.gift-amounts { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -2374,6 +2399,22 @@ a.dropdown { text-decoration: none; }
         });
       });
       show((location.hash || '').replace('#', '') || document.querySelector('.view').id);
+
+      // Page-level tab bar (seg-tabs) swaps the big panels.
+      document.querySelectorAll('.seg-tabs').forEach(function (bar) {
+        var btns = bar.querySelectorAll('[data-page-tab]');
+        btns.forEach(function (b) {
+          b.addEventListener('click', function () {
+            btns.forEach(function (x) { x.classList.remove('is-active'); });
+            b.classList.add('is-active');
+            var target = b.getAttribute('data-page-tab');
+            btns.forEach(function (x) {
+              var el = document.getElementById(x.getAttribute('data-page-tab'));
+              if (el) el.hidden = el.id !== target;
+            });
+          });
+        });
+      });
 
       // In-page tabs. A tab carrying data-tab also swaps its panel.
       document.querySelectorAll('.tab-nav').forEach(function (group) {

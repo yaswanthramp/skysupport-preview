@@ -1498,6 +1498,31 @@ a.dropdown { text-decoration: none; }
 }
 .sign-row:first-child { border-top: 0; }
 
+/* Page tab bar needs air before the underline tabs below it, or the two
+   levels read as one crowded control. */
+.seg-tabs.page-tabs { margin-bottom: var(--space-5); }
+.seg-tabs.page-tabs + .tab-nav { margin-top: 0; }
+
+/* ---- Row action menu -------------------------------------- */
+.menu-anchor { position: relative; display: inline-flex; }
+.row-menu {
+  position: absolute; right: 0; top: calc(100% + var(--space-1));
+  z-index: 60; width: 200px; padding: var(--space-1);
+}
+.row-menu[hidden] { display: none; }
+
+/* ---- Wizard step panels ----------------------------------- */
+.wz-panel[hidden] { display: none; }
+.wz-step { cursor: pointer; }
+.wz-step:hover .wz-label { color: var(--fg-high); }
+
+/* ---- Send gift card summary ------------------------------- */
+.gift-summary {
+  border-radius: var(--radius-4); background: var(--gray-2);
+  padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);
+}
+.gift-amounts { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -2433,7 +2458,7 @@ a.dropdown { text-decoration: none; }
               <h1>Engagement</h1>
               <p>Training people are assigned, and the recognition they get for the work itself.</p>
             </div>
-            <a class="btn btn-solid" href="#view-recognise" data-view="view-recognise"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" /></svg> Recognise someone</a>
+            <span class="page-cta" data-cta-for="page-learning"><a class="btn btn-solid" href="#view-workflow-new" data-view="view-workflow-new"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Create workflow</a></span><span class="page-cta" data-cta-for="page-rewards" hidden><a class="btn btn-solid" href="#view-recognise" data-view="view-recognise"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" /></svg> Recognise someone</a></span>
           </header>
           <div class="stack-5">
 
@@ -2506,7 +2531,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-54"></div></div><span class="cp-num">54%</span></span>
                     </td>
                     <td><span class="badge is-success">Active</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for New caregiver onboarding"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-01" aria-expanded="false" aria-label="Actions for New caregiver onboarding"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-01" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1" /> <rect x="5" y="3" width="5" height="18" rx="1" /></svg> <span class="flex-1">Pause</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2531,7 +2570,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-52"></div></div><span class="cp-num">52%</span></span>
                     </td>
                     <td><span class="badge is-success">Active</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for All staff compliance 2026"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-02" aria-expanded="false" aria-label="Actions for All staff compliance 2026"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-02" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1" /> <rect x="5" y="3" width="5" height="18" rx="1" /></svg> <span class="flex-1">Pause</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2556,7 +2609,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-67"></div></div><span class="cp-num">67%</span></span>
                     </td>
                     <td><span class="badge is-success">Active</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Food safety certification"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-03" aria-expanded="false" aria-label="Actions for Food safety certification"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-03" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1" /> <rect x="5" y="3" width="5" height="18" rx="1" /></svg> <span class="flex-1">Pause</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2581,7 +2648,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-24"></div></div><span class="cp-num">24%</span></span>
                     </td>
                     <td><span class="badge is-success">Active</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for California labour law"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-04" aria-expanded="false" aria-label="Actions for California labour law"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-04" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1" /> <rect x="5" y="3" width="5" height="18" rx="1" /></svg> <span class="flex-1">Pause</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2606,7 +2687,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-22"></div></div><span class="cp-num">22%</span></span>
                     </td>
                     <td><span class="badge is-warning">Paused</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Director leadership track"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-05" aria-expanded="false" aria-label="Actions for Director leadership track"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-05" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></svg> <span class="flex-1">Resume</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2631,7 +2726,21 @@ a.dropdown { text-decoration: none; }
                       <span class="subtle">Not started</span>
                     </td>
                     <td><span class="badge is-neutral">Draft</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Maintenance safety refresh"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-06" aria-expanded="false" aria-label="Actions for Maintenance safety refresh"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-06" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></svg> <span class="flex-1">Resume</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -2656,7 +2765,21 @@ a.dropdown { text-decoration: none; }
                       <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-100"></div></div><span class="cp-num">100%</span></span>
                     </td>
                     <td><span class="badge is-neutral">Archived</span></td>
-                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Nurse re-certification 2025"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                    <td>
+                      <span class="menu-anchor">
+                        <button class="btn btn-ghost is-sm is-icon" data-menu-toggle="menu-WF-07" aria-expanded="false" aria-label="Actions for Nurse re-certification 2025"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button>
+                        <div class="popover row-menu" id="menu-WF-07" hidden>
+                          <div class="dropdown-menu">
+                            <a class="list-item" href="#view-workflow" data-view="view-workflow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> <span class="flex-1">Edit workflow</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> <span class="flex-1">View progress</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span class="flex-1">Duplicate</span></a>
+                            <span class="divider"></span>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></svg> <span class="flex-1">Resume</span></a>
+                            <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></svg> <span class="flex-1">Archive</span></a>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
                   </tr>
                   </tbody>
                 </table>
@@ -3057,8 +3180,6 @@ a.dropdown { text-decoration: none; }
                 </div>
               </section>
             </div>
-
-          </div>
             </div>
 
             <div class="tab-panel" id="page-rewards" hidden>
@@ -3276,7 +3397,7 @@ a.dropdown { text-decoration: none; }
                   <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
                   <span class="callout-body"><strong>2 gift cards expired unredeemed.</strong>
                   Cards expire 90 days after sending. A reminder now goes out at 60 days.</span>
-                  <button class="btn btn-surface is-sm">Review policy</button>
+                  <button class="btn btn-surface is-sm" data-dialog-open="dialog-policy" type="button">Review policy</button>
                 </div>
 
                 <div class="kpi-row mt-5">
@@ -3308,7 +3429,7 @@ a.dropdown { text-decoration: none; }
                       <div class="panel-title">Quarterly budget</div>
                       <div class="panel-sub">Resets on 1 October.</div>
                     </div>
-                    <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Adjust budget</button>
+                    <button class="btn btn-surface is-sm" data-dialog-open="dialog-budget" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Adjust budget</button>
                   </div>
                   <div class="budget">
                     <span class="budget-spent">$2,350</span>
@@ -3329,31 +3450,31 @@ a.dropdown { text-decoration: none; }
                   <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add provider</button>
                 </div>
                 <div class="gift-grid">
-                    <a class="card gift-card" href="#view-recognise" data-view="view-recognise">
+                    <a class="card gift-card" href="#view-gift" data-view="view-gift">
                       <span class="gift-logo is-c1">AZ</span>
                       <span class="gift-name">Amazon</span>
                       <span class="gift-meta">Gift cards, 10 to 200 dollars</span>
                       <span class="gift-meta">21 sent, $1,050</span>
                     </a>
-                    <a class="card gift-card" href="#view-recognise" data-view="view-recognise">
+                    <a class="card gift-card" href="#view-gift" data-view="view-gift">
                       <span class="gift-logo is-c2">UB</span>
                       <span class="gift-name">Uber</span>
                       <span class="gift-meta">Rides and Uber Eats</span>
                       <span class="gift-meta">9 sent, $450</span>
                     </a>
-                    <a class="card gift-card" href="#view-recognise" data-view="view-recognise">
+                    <a class="card gift-card" href="#view-gift" data-view="view-gift">
                       <span class="gift-logo is-c3">FK</span>
                       <span class="gift-name">Flipkart</span>
                       <span class="gift-meta">India, gift vouchers</span>
                       <span class="gift-meta">8 sent, $400</span>
                     </a>
-                    <a class="card gift-card" href="#view-recognise" data-view="view-recognise">
+                    <a class="card gift-card" href="#view-gift" data-view="view-gift">
                       <span class="gift-logo is-c4">NK</span>
                       <span class="gift-name">Nykaa</span>
                       <span class="gift-meta">India, beauty and wellness</span>
                       <span class="gift-meta">5 sent, $250</span>
                     </a>
-                    <a class="card gift-card" href="#view-recognise" data-view="view-recognise">
+                    <a class="card gift-card" href="#view-gift" data-view="view-gift">
                       <span class="gift-logo is-c5">SW</span>
                       <span class="gift-name">Swiggy</span>
                       <span class="gift-meta">India, food delivery</span>
@@ -3644,7 +3765,175 @@ a.dropdown { text-decoration: none; }
                   </div>
                 </section>
               </div>
+
+          <div class="overlay" id="dialog-budget" hidden>
+            <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-b-title">
+              <div class="dialog-title" id="dlg-b-title">Adjust the quarterly budget</div>
+              <div class="dialog-body">Spending resets on 1 October. Changing this does not affect
+              cards already sent.</div>
+              <div class="field">
+                <label class="field-label" for="b-amt">Budget for this quarter</label>
+                <input class="input" id="b-amt" value="$4,000" />
+                <span class="field-hint">$2,350 already committed, so this cannot go below that.</span>
+              </div>
+              <div class="field">
+                <label class="field-label">Who can spend it</label>
+                <span class="dropdown">Managers and above <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="field">
+                <label class="field-label">Warn me at</label>
+                <span class="dropdown">80 percent spent <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="dialog-footer">
+                <button class="btn btn-surface" data-dialog-close type="button">Cancel</button>
+                <button class="btn btn-solid" type="button">Save budget</button>
+              </div>
             </div>
+          </div>
+
+          <div class="overlay" id="dialog-policy" hidden>
+            <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-p-title">
+              <div class="dialog-title" id="dlg-p-title">Gift card policy</div>
+              <div class="dialog-body">These rules apply to every card sent from skySupport.</div>
+              <div class="field">
+                <label class="field-label">Cards expire after</label>
+                <span class="dropdown">90 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="field-hint">2 cards expired unredeemed last quarter.</span>
+              </div>
+              <div class="field">
+                <label class="field-label">Remind the recipient at</label>
+                <span class="dropdown">60 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="field">
+                <label class="field-label">Approval needed above</label>
+                <span class="dropdown">$100 <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="field">
+                <label class="field-label">Approver</label>
+                <span class="dropdown">Rohit Menon, Head of HR <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="dialog-footer">
+                <button class="btn btn-surface" data-dialog-close type="button">Cancel</button>
+                <button class="btn btn-solid" type="button">Save policy</button>
+              </div>
+            </div>
+          </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-gift" data-parent="view-engagement" hidden>
+      <div class="breadcrumbs"><a href="#">Workforce Lifecycle</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Engagement</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Send a gift card</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Send a gift card</h1>
+              <p>Choose the provider, the amount, and why. It reaches them by email within a minute.</p>
+            </div>
+          </header>
+          <div class="split-2">
+
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Send an Amazon gift card</div>
+                  <div class="panel-sub">Bought at the moment you send. Nothing is pre-purchased.</div>
+                </div>
+                <span class="badge is-neutral">$1,650 left this quarter</span>
+              </div>
+
+              <div class="stack-4">
+                <div class="field">
+                  <label class="field-label">Provider</label>
+                  <div class="cond-row"><span class="dropdown">Amazon <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></div>
+                  <span class="field-hint">Delivered as a code by email. Valid for 90 days.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Who is it for?</label>
+                  <div class="cond-row"><span class="dropdown">Grace Adeyemi <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></div>
+                  <span class="field-hint">Add more than one to send the same card to a group.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Amount</label>
+                  <div class="radio-cards gift-amounts">
+                    <label class="radio-card "><span class="rc-title">$10</span></label>
+                    <label class="radio-card "><span class="rc-title">$25</span></label>
+                    <label class="radio-card is-selected"><span class="rc-title">$50</span></label>
+                    <label class="radio-card "><span class="rc-title">$100</span></label>
+                    <label class="radio-card "><span class="rc-title">$200</span></label>
+                  </div>
+                  <span class="field-hint">Anything over $100 needs approval from the Head of HR.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Why are you sending it?</label>
+                  <div class="cond-row"><span class="dropdown">Resident first <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></div>
+                  <span class="field-hint">Links the card to a recognition so it shows in the feed.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="gift-msg">Message</label>
+                  <textarea class="textarea" id="gift-msg" rows="3"
+                    placeholder="A short note the recipient sees with the card."></textarea>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Deliver</label>
+                  <div class="radio-cards">
+                    <label class="radio-card is-selected"><span class="rc-title">Now</span><span class="rc-sub">Emailed within a minute</span></label>
+                    <label class="radio-card"><span class="rc-title">On a date</span><span class="rc-sub">Birthday, work anniversary</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-actions">
+                <a class="btn btn-surface" href="#view-engagement" data-view="view-engagement"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Cancel</a>
+                <span class="toolbar-spacer"></span>
+                <button class="btn btn-soft" type="button">Preview email</button>
+                <button class="btn btn-solid" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /></svg> Send card</button>
+              </div>
+            </section>
+
+            <aside class="stack-4">
+              <section class="card">
+                <div class="panel-head"><div class="panel-title">Summary</div></div>
+                <div class="gift-summary">
+                  <div class="row-center">
+                    <span class="gift-logo is-c1 load-avatar">AZ</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Amazon, $50</span>
+                      <span class="row-sub">To Grace Adeyemi</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="data-list mt-4">
+                  <span class="dl-label">Cost</span><span class="dl-value">$50.00</span>
+                  <span class="dl-label">Budget after</span><span class="dl-value">$1,600 of $4,000</span>
+                  <span class="dl-label">Expires</span><span class="dl-value">90 days after sending</span>
+                  <span class="dl-label">Approval</span><span class="dl-value">Not needed under $100</span>
+                </div>
+              </section>
+
+              <section class="card">
+                <div class="panel-head"><div class="panel-title">Worth knowing</div></div>
+                <div class="callout is-warning">
+                  <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                  <span class="callout-body">2 cards expired unredeemed last quarter.
+                  A reminder now goes out at 60 days.</span>
+                </div>
+                <div class="row-list mt-4">
+                  <div class="row-link">
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Grace was last rewarded</span>
+                      <span class="row-sub">Never. This would be her first.</span>
+                    </span>
+                  </div>
+                </div>
+              </section>
+            </aside>
 
           </div>
         </div>
@@ -3815,41 +4104,43 @@ a.dropdown { text-decoration: none; }
 
             <section class="card">
               <div class="wizard">
-              <div class="wz-step is-current">
-                <span class="wz-line"></span>
-                <span class="wz-dot">1</span>
-                <span class="wz-label">Targeting</span>
-                <span class="wz-sub">Who this applies to</span>
-              </div>
-              <div class="wz-step ">
-                <span class="wz-line"></span>
-                <span class="wz-dot">2</span>
-                <span class="wz-label">Courses</span>
-                <span class="wz-sub">What they take</span>
-              </div>
-              <div class="wz-step ">
-                <span class="wz-line"></span>
-                <span class="wz-dot">3</span>
-                <span class="wz-label">Deadlines</span>
-                <span class="wz-sub">When it is due</span>
-              </div>
-              <div class="wz-step ">
-                <span class="wz-line"></span>
-                <span class="wz-dot">4</span>
-                <span class="wz-label">Notifications</span>
-                <span class="wz-sub">What gets emailed</span>
-              </div>
-              <div class="wz-step ">
-                <span class="wz-line"></span>
-                <span class="wz-dot">5</span>
-                <span class="wz-label">Review</span>
-                <span class="wz-sub">Check and activate</span>
-              </div>
+                <button class="wz-step is-current" data-wz-step="wz-0" type="button">
+                  <span class="wz-line"></span>
+                  <span class="wz-dot">1</span>
+                  <span class="wz-label">Targeting</span>
+                  <span class="wz-sub">Who this applies to</span>
+                </button>
+                <button class="wz-step " data-wz-step="wz-1" type="button">
+                  <span class="wz-line"></span>
+                  <span class="wz-dot">2</span>
+                  <span class="wz-label">Courses</span>
+                  <span class="wz-sub">What they take</span>
+                </button>
+                <button class="wz-step " data-wz-step="wz-2" type="button">
+                  <span class="wz-line"></span>
+                  <span class="wz-dot">3</span>
+                  <span class="wz-label">Deadlines</span>
+                  <span class="wz-sub">When it is due</span>
+                </button>
+                <button class="wz-step " data-wz-step="wz-3" type="button">
+                  <span class="wz-line"></span>
+                  <span class="wz-dot">4</span>
+                  <span class="wz-label">Notifications</span>
+                  <span class="wz-sub">What gets emailed</span>
+                </button>
+                <button class="wz-step " data-wz-step="wz-4" type="button">
+                  <span class="wz-line"></span>
+                  <span class="wz-dot">5</span>
+                  <span class="wz-label">Review</span>
+                  <span class="wz-sub">Check and activate</span>
+                </button>
               </div>
             </section>
 
             <div class="split-2">
-              <section class="card">
+              <div>
+              <div class="wz-panel" id="wz-0">
+<section class="card">
                 <div class="panel-head">
                   <div>
                     <div class="panel-title">Who should get this training?</div>
@@ -3857,28 +4148,21 @@ a.dropdown { text-decoration: none; }
                   </div>
                 </div>
 
-                <div class="rule-block">
+                <div class="field">
+                  <label class="field-label" for="wf-name">Workflow name</label>
+                  <input class="input" id="wf-name" value="New caregiver onboarding" />
+                </div>
+
+                <div class="rule-block mt-5">
                   <div class="rule-head">
                     <span class="rule-when">When</span>
                     <span class="row-title">a lifecycle event happens</span>
                   </div>
                   <div class="radio-cards">
-                    <label class="radio-card is-selected">
-                      <span class="rc-title">Someone joins</span>
-                      <span class="rc-sub">Runs on their start date</span>
-                    </label>
-                    <label class="radio-card">
-                      <span class="rc-title">Someone changes role</span>
-                      <span class="rc-sub">Runs when the role field changes</span>
-                    </label>
-                    <label class="radio-card">
-                      <span class="rc-title">Someone moves department</span>
-                      <span class="rc-sub">Runs on the transfer date</span>
-                    </label>
-                    <label class="radio-card">
-                      <span class="rc-title">Manual only</span>
-                      <span class="rc-sub">You assign it yourself</span>
-                    </label>
+                    <label class="radio-card is-selected"><span class="rc-title">Someone joins</span><span class="rc-sub">Runs on their start date</span></label>
+                    <label class="radio-card"><span class="rc-title">Someone changes role</span><span class="rc-sub">Runs when the role field changes</span></label>
+                    <label class="radio-card"><span class="rc-title">Someone moves department</span><span class="rc-sub">Runs on the transfer date</span></label>
+                    <label class="radio-card"><span class="rc-title">Manual only</span><span class="rc-sub">You assign it yourself</span></label>
                   </div>
                 </div>
 
@@ -3887,31 +4171,20 @@ a.dropdown { text-decoration: none; }
                     <span class="rule-when">And</span>
                     <span class="row-title">they match all of these</span>
                   </div>
-
                   <div class="cond-row">
-                    <span class="cond-join">If</span>
-                    <span class="dropdown">Department <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">is any of <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">Care &amp; Nursing, Dining Services <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                    <span class="cond-join">If</span><span class="dropdown">Department <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">is any of <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">Care &amp; Nursing, Dining Services <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" type="button" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
                   </div>
                   <div class="cond-row">
-                    <span class="cond-join">And</span>
-                    <span class="dropdown">Location <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">is <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">Bangalore campus <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                    <span class="cond-join">And</span><span class="dropdown">Location <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">is <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">Bangalore campus <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" type="button" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
                   </div>
                   <div class="cond-row">
-                    <span class="cond-join">And</span>
-                    <span class="dropdown">Role <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">is not <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="dropdown">Director of Nursing <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                    <span class="cond-join">And</span><span class="dropdown">Role <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">is not <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">Director of Nursing <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" type="button" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
                   </div>
-
                   <div class="composer-actions">
-                    <button class="btn btn-soft is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add condition</button>
+                    <button class="btn btn-soft is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add condition</button>
                     <span class="toolbar-spacer"></span>
                   </div>
                 </div>
@@ -3921,20 +4194,334 @@ a.dropdown { text-decoration: none; }
                     <span class="rule-when">Plus</span>
                     <span class="row-title">anyone you name directly</span>
                   </div>
-                  <div class="cond-row">
-                    <span class="dropdown">Add a person <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
-                    <span class="row-sub">Overrides the conditions above.</span>
+                  <div class="cond-row"><span class="dropdown">Add a person <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="row-sub">Overrides the conditions above.</span></div>
+                </div>
+
+                <div class="wizard-actions">
+                  <a class="btn btn-surface" href="#view-engagement" data-view="view-engagement"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Cancel</a>
+                  <span class="toolbar-spacer"></span>
+                  <span class="wz-sub">Step 1 of 5</span>
+                  <button class="btn btn-soft" type="button">Save as draft</button>
+                  <button class="btn btn-solid" data-wz-go="wz-1" type="button">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+                </div>
+              </section>
+              </div>
+              <div class="wz-panel" id="wz-1" hidden>
+<section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">What should they take?</div>
+                    <div class="panel-sub">Attach a bundle to add several at once, or pick courses individually.</div>
+                  </div>
+                  <span class="badge is-success"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /> <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /> <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /> <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></svg> skyLearn connected</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Add a bundle</label>
+                  <div class="cond-row"><span class="dropdown">Caregiver essentials, 6 courses <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="btn btn-soft is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add</button>
+                  </div>
+                  <span class="field-hint">Bundles stay in sync. If skyLearn adds a course to the bundle, it is added here too.</span>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">Add a single course</label>
+                  <div class="cond-row"><span class="dropdown">Search the skyLearn catalogue <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="btn btn-soft is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add</button>
+                  </div>
+                </div>
+
+                <div class="panel-head mt-5">
+                  <div>
+                    <div class="panel-title">6 courses attached</div>
+                    <div class="panel-sub">4 hours 30 minutes in total. Drag to reorder.</div>
+                  </div>
+                  <span class="segmented">
+                    <button class="segmented-item is-active" type="button">Unlock in order</button>
+                    <button class="segmented-item" type="button">All at once</button>
+                  </span>
+                </div>
+                <div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">1</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Resident dignity and rights</span>
+                      <span class="course-meta">Care, 45m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Resident dignity and rights"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">2</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Infection control</span>
+                      <span class="course-meta">Care, 35m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Infection control"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">3</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Medication administration basics</span>
+                      <span class="course-meta">Care, 1h 10m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Medication administration basics"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">4</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Emergency evacuation procedure</span>
+                      <span class="course-meta">Safety, 30m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Emergency evacuation procedure"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">5</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Harassment prevention</span>
+                      <span class="course-meta">Compliance, 40m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Harassment prevention"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">6</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Data privacy and HIPAA</span>
+                      <span class="course-meta">Compliance, 25m</span>
+                    </span>
+                    <button class="cond-remove" type="button" aria-label="Remove Data privacy and HIPAA"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
                   </div>
                 </div>
 
                 <div class="wizard-actions">
-                  <a class="btn btn-surface" href="#view-learning" data-view="view-learning"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Cancel</a>
+                  <button class="btn btn-surface" data-wz-go="wz-0" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Back</button>
                   <span class="toolbar-spacer"></span>
-                  <span class="wz-sub">Step 1 of 5</span>
-                  <button class="btn btn-soft">Save as draft</button>
-                  <button class="btn btn-solid">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+                  <span class="wz-sub">Step 2 of 5</span>
+                  <button class="btn btn-soft" type="button">Save as draft</button>
+                  <button class="btn btn-solid" data-wz-go="wz-2" type="button">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
                 </div>
               </section>
+              </div>
+              <div class="wz-panel" id="wz-2" hidden>
+<section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">When is it due?</div>
+                    <div class="panel-sub">Set one deadline for the whole package, or a different one per course.</div>
+                  </div>
+                </div>
+
+                <div class="radio-cards">
+                  <label class="radio-card is-selected">
+                    <span class="rc-title">Relative to their start date</span>
+                    <span class="rc-sub">Everyone gets the same number of days, whenever they join</span>
+                  </label>
+                  <label class="radio-card">
+                    <span class="rc-title">A fixed calendar date</span>
+                    <span class="rc-sub">For a compliance deadline the whole community shares</span>
+                  </label>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">Whole package due</label>
+                  <div class="cond-row"><span class="dropdown">7 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="row-sub">after their start date.</span></div>
+                  <span class="field-hint">Someone starting on a Monday would have until the following Monday.</span>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">Per course deadlines</label>
+                  <label class="switch"><input type="checkbox" checked aria-label="Set a deadline per course" /> <span>Set a deadline per course</span></label>
+                </div>
+
+                <div class="table-wrap mt-4">
+                  <table class="table">
+                    <thead><tr><th>Course</th><th>Due type</th><th>Due</th></tr></thead>
+                    <tbody>
+                    <tr>
+                      <td><span class="cell-strong">Resident dignity and rights</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">2 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Infection control</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">3 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Medication administration basics</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">5 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Emergency evacuation procedure</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">5 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Harassment prevention</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">7 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Data privacy and HIPAA</span></td>
+                      <td><span class="dropdown">Days after start <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                      <td><span class="dropdown">7 days <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="callout is-info mt-5">
+                  <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg></span>
+                  <span class="callout-body">Deadlines skip weekends and public holidays for the
+                  location on the person's profile.</span>
+                </div>
+
+                <div class="wizard-actions">
+                  <button class="btn btn-surface" data-wz-go="wz-1" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Back</button>
+                  <span class="toolbar-spacer"></span>
+                  <span class="wz-sub">Step 3 of 5</span>
+                  <button class="btn btn-soft" type="button">Save as draft</button>
+                  <button class="btn btn-solid" data-wz-go="wz-3" type="button">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+                </div>
+              </section>
+              </div>
+              <div class="wz-panel" id="wz-3" hidden>
+<section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">What gets emailed?</div>
+                    <div class="panel-sub">Every message is previewable, and nothing sends until you activate the workflow.</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Assignment email</span>
+                      <span class="notif-sub">Sent the moment the rule matches, with a sign-in link and the course list.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox" checked aria-label="Assignment email" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Reminder, 3 days before due</span>
+                      <span class="notif-sub">Only to people who have not finished.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox" checked aria-label="Reminder, 3 days before due" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Reminder, on the due date</span>
+                      <span class="notif-sub">Only to people who have not finished.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox" checked aria-label="Reminder, on the due date" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Overdue notice</span>
+                      <span class="notif-sub">To the person, copied to their manager after 3 days overdue.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox" checked aria-label="Overdue notice" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Weekly digest to managers</span>
+                      <span class="notif-sub">A summary of their team's outstanding training.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox"  aria-label="Weekly digest to managers" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Completion confirmation</span>
+                      <span class="notif-sub">A short well done, with the certificate attached.</span>
+                    </span>
+                    <button class="btn btn-ghost is-sm" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview</button>
+                    <label class="switch"><input type="checkbox"  aria-label="Completion confirmation" /></label>
+                  </div>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">Send from</label>
+                  <div class="cond-row"><span class="dropdown">People team, people@bhicommunity.org <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></div>
+                  <span class="field-hint">Replies go to this address.</span>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">Escalate to</label>
+                  <div class="cond-row"><span class="dropdown">Their manager <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span><span class="dropdown">after 3 days overdue <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span></div>
+                </div>
+
+                <div class="wizard-actions">
+                  <button class="btn btn-surface" data-wz-go="wz-2" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Back</button>
+                  <span class="toolbar-spacer"></span>
+                  <span class="wz-sub">Step 4 of 5</span>
+                  <button class="btn btn-soft" type="button">Save as draft</button>
+                  <button class="btn btn-solid" data-wz-go="wz-4" type="button">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+                </div>
+              </section>
+              </div>
+              <div class="wz-panel" id="wz-4" hidden>
+<section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Check before you activate</div>
+                    <div class="panel-sub">Activating assigns 64 people immediately and emails them today.</div>
+                  </div>
+                </div>
+
+                <div class="data-list">
+                  <span class="dl-label">Name</span><span class="dl-value">New caregiver onboarding</span>
+                  <span class="dl-label">Trigger</span><span class="dl-value">When someone joins</span>
+                  <span class="dl-label">Applies to</span><span class="dl-value">Care &amp; Nursing or Dining Services, Bangalore campus, not Director of Nursing</span>
+                  <span class="dl-label">Courses</span><span class="dl-value">6, unlocked in order, 4h 30m total</span>
+                  <span class="dl-label">Due</span><span class="dl-value">7 days after start date, with per course deadlines</span>
+                  <span class="dl-label">Emails</span><span class="dl-value">4 of 6 enabled</span>
+                  <span class="dl-label">Matches today</span><span class="dl-value">64 people</span>
+                </div>
+
+                <div class="callout is-warning mt-5">
+                  <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                  <span class="callout-body"><strong>18 of these 64 already have a compliance workflow.</strong>
+                  They will receive both unless you exclude them on the targeting step.</span>
+                  <button class="btn btn-surface is-sm" data-wz-go="wz-0" type="button">Back to targeting</button>
+                </div>
+
+                <div class="field mt-5">
+                  <label class="field-label">When should it start?</label>
+                  <div class="radio-cards">
+                    <label class="radio-card is-selected"><span class="rc-title">Activate now</span><span class="rc-sub">Assigns the 64 matching people today</span></label>
+                    <label class="radio-card"><span class="rc-title">Only people who join from now on</span><span class="rc-sub">Nobody existing is assigned</span></label>
+                    <label class="radio-card"><span class="rc-title">Save as draft</span><span class="rc-sub">Nothing is assigned or emailed</span></label>
+                  </div>
+                </div>
+
+                <div class="wizard-actions">
+                  <button class="btn btn-surface" data-wz-go="wz-3" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Back</button>
+                  <span class="toolbar-spacer"></span>
+                  <span class="wz-sub">Step 5 of 5</span>
+                  <button class="btn btn-soft" type="button">Save as draft</button>
+                  <button class="btn btn-solid" type="button"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></svg> Activate workflow</button>
+                </div>
+              </section>
+              </div>
+              </div>
 
               <aside class="stack-4">
                 <section class="card">
@@ -5031,6 +5618,48 @@ a.dropdown { text-decoration: none; }
       });
       show((location.hash || '').replace('#', '') || document.querySelector('.view').id);
 
+      // Wizard steps are navigable both ways, from the bar and the buttons.
+      function goStep(id) {
+        var panels = document.querySelectorAll('.wz-panel');
+        if (!panels.length) return;
+        panels.forEach(function (p) { p.hidden = p.id !== id; });
+        document.querySelectorAll('[data-wz-step]').forEach(function (b, i) {
+          var target = b.getAttribute('data-wz-step');
+          var idx = parseInt(id.split('-')[1], 10);
+          b.classList.toggle('is-current', target === id);
+          b.classList.toggle('is-done', i < idx);
+        });
+        var el = document.querySelector('.app-content');
+        if (el) el.scrollTop = 0;
+      }
+      document.querySelectorAll('[data-wz-step]').forEach(function (b) {
+        b.addEventListener('click', function () { goStep(b.getAttribute('data-wz-step')); });
+      });
+      document.querySelectorAll('[data-wz-go]').forEach(function (b) {
+        b.addEventListener('click', function () { goStep(b.getAttribute('data-wz-go')); });
+      });
+
+      // Row action menus, one open at a time.
+      var rowMenus = [].slice.call(document.querySelectorAll('[data-menu-toggle]'));
+      function closeRowMenus() {
+        rowMenus.forEach(function (b) {
+          var m = document.getElementById(b.getAttribute('data-menu-toggle'));
+          if (m) m.hidden = true;
+          b.setAttribute('aria-expanded', 'false');
+        });
+      }
+      rowMenus.forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var m = document.getElementById(b.getAttribute('data-menu-toggle'));
+          var willOpen = m && m.hidden;
+          closeRowMenus();
+          if (m && willOpen) { m.hidden = false; b.setAttribute('aria-expanded', 'true'); }
+        });
+      });
+      document.addEventListener('click', closeRowMenus);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeRowMenus(); });
+
       // Page-level tab bar (seg-tabs) swaps the big panels.
       document.querySelectorAll('.seg-tabs').forEach(function (bar) {
         var btns = bar.querySelectorAll('[data-page-tab]');
@@ -5042,6 +5671,9 @@ a.dropdown { text-decoration: none; }
             btns.forEach(function (x) {
               var el = document.getElementById(x.getAttribute('data-page-tab'));
               if (el) el.hidden = el.id !== target;
+            });
+            document.querySelectorAll('.page-cta').forEach(function (c) {
+              c.hidden = c.getAttribute('data-cta-for') !== target;
             });
           });
         });
