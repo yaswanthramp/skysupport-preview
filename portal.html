@@ -1297,6 +1297,12 @@ a.dropdown { text-decoration: none; }
    spans are block. Bites .radio-card, whose spans are inline by default. */
 .radio-card .rc-title, .radio-card .rc-sub { display: block; }
 
+/* .overlay sets display:flex, which beats the [hidden] attribute's default
+   display:none. Without this guard a "hidden" dialog still covers the page
+   and its Cancel button appears dead. Same pattern the DS uses for
+   .view, .profile-menu, and .app-banner. */
+.overlay[hidden] { display: none; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
