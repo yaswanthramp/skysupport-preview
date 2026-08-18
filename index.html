@@ -1255,6 +1255,48 @@ a.btn { text-decoration: none; }
 .breadcrumbs a:hover { text-decoration: underline; }
 .app-tile { text-decoration: none; }
 
+/* ---- Header product switcher ------------------------------ */
+.prod-switch { border: 0; font-family: var(--font-base); cursor: pointer; }
+.prod-menu { width: 240px; padding: var(--space-1); }
+.prod-menu .list-item { justify-content: flex-start; }
+
+/* ---- Profile menu additions ------------------------------- */
+.profile-menu .pm-switch-hint { font-size: var(--fs-1); color: var(--fg-subtle); }
+.profile-menu .pm-signout { width: 100%; justify-content: center; }
+.profile-btn .pb-name { white-space: nowrap; }
+
+/* ---- Wizard stepper (portal creation) --------------------- */
+.wizard { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: var(--space-2); }
+.wz-step { flex: 1; min-width: 108px; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); position: relative; text-align: center; }
+.wz-line { position: absolute; top: 13px; left: 50%; right: -50%; height: 2px; background: var(--gray-4); }
+.wz-step:last-child .wz-line { display: none; }
+.wz-step.is-done .wz-line { background: var(--success-solid); }
+.wz-dot {
+  width: 26px; height: 26px; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-4); color: var(--fg-low);
+  font-size: var(--fs-1); font-weight: var(--weight-medium);
+  position: relative; z-index: 1;
+}
+.wz-step.is-done .wz-dot { background: var(--success-solid); color: var(--color-surface); }
+.wz-step.is-current .wz-dot { background: var(--accent-9); color: var(--accent-contrast); }
+.wz-label { font-size: var(--fs-2); color: var(--fg-low); }
+.wz-step.is-current .wz-label, .wz-step.is-done .wz-label { color: var(--fg-high); font-weight: var(--weight-medium); }
+.wz-sub { font-size: var(--fs-1); color: var(--fg-subtle); }
+.wizard-actions { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-5); padding-top: var(--space-4); border-top: var(--stroke-thin) solid var(--border-subtle); }
+
+/* ---- Dialog demo (shown inline in a static wireframe) ------ */
+.dialog-demo { position: relative; }
+.dialog-demo .overlay { position: absolute; border-radius: var(--radius-4); }
+.dialog-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+a.dropdown { text-decoration: none; }
+/* Badges inside a flex-column card must not stretch to full width. */
+.service-card .badge { align-self: flex-start; }
+
+/* rules.md 14: a stacked title + subtitle collapses onto one line unless the
+   spans are block. Bites .radio-card, whose spans are inline by default. */
+.radio-card .rc-title, .radio-card .rc-sub { display: block; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -1338,23 +1380,65 @@ a.btn { text-decoration: none; }
       </div>
       <div class="search hdr-search">
         <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
-        <input class="input" placeholder="Search tickets, customers, portals" aria-label="Search tickets, customers, portals" />
+        <input class="input" placeholder="Search tickets, contacts, portals" aria-label="Search tickets, contacts, portals" />
       </div>
       <div class="header-right">
-        <span class="dropdown org-switch"><span class="avatar is-neutral hdr-avatar-sm">SD</span> Service Desk <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5" /> <path d="m7 9 5-5 5 5" /></svg></span></span>
-        <button class="icon-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg><span class="ic-badge">3</span></button>
         <span class="pop-anchor">
-          <button class="icon-btn" aria-label="Switch app" data-apps-toggle aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M3 9h18" /> <path d="M3 15h18" /> <path d="M9 3v18" /> <path d="M15 3v18" /></svg></button>
-          <div class="popover pop-below" id="appsPop" hidden>
-            <div class="app-launcher">
-            <a class="app-tile" href="index.html"><span class="at-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg></span> Agent console</a>
-            <a class="app-tile" href="portal.html"><span class="at-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="10" r="3" /> <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" /></svg></span> Customer portal</a>
+          <button class="dropdown prod-switch" data-prod-toggle aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg> Service Desk <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
+          </button>
+          <div class="popover pop-below prod-menu" id="prodMenu" hidden>
+            <div class="dropdown-menu">
+              <a class="list-item is-selected" href="#"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg> <span class="flex-1">Service Desk</span><span class="list-check"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span></a>
+              <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg> <span class="flex-1">Workforce Lifecycle</span></a>
             </div>
           </div>
         </span>
+        <button class="icon-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg><span class="ic-badge">3</span></button>
         <button class="icon-btn" aria-label="Toggle theme" data-theme-toggle><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg></button>
         <span class="divider-v"></span>
-        <span class="header-user"><span class="avatar">YP</span><span>Yaswanthram Ponnada</span></span>
+        <span class="pop-anchor">
+          <button class="profile-btn" data-profile-toggle aria-expanded="false">
+            <span class="avatar">YP</span>
+            <span class="pb-name">Yaswanthram Ponnada</span>
+            <span class="pb-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
+          </button>
+          <div class="popover profile-menu pop-below" id="profileMenu" hidden>
+      <div class="pm-head">
+        <span class="avatar">YP</span>
+        <span class="pm-id">
+          <span class="pm-name">Yaswanthram Ponnada</span>
+          <span class="pm-email">yaswanthram.ponnada@skypoint.ai</span>
+          <a class="pm-viewprofile" href="#">View profile</a>
+        </span>
+      </div>
+      <span class="divider"></span>
+      <div class="pm-field">
+        <label>Tenant</label>
+        <span class="dropdown">Skypoint Production <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+      </div>
+      <div class="pm-field">
+        <label>Instance</label>
+        <span class="dropdown">Sandbox2 <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+      </div>
+      <span class="divider"></span>
+      <div class="pm-item"><span>Role</span><span class="badge is-info">Skypoint Admin</span></div>
+      <span class="divider"></span>
+      <div class="pm-field">
+        <label>Portal view</label>
+        <a class="dropdown" href="portal.html">Admin <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5" /> <path d="m7 9 5-5 5 5" /></svg></span></a>
+        <span class="pm-switch-hint">Switch to the user portal</span>
+      </div>
+      <span class="divider"></span>
+      <a class="pm-item" href="#">Documentation <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Privacy portal <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Terms of use <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Feedback</a>
+      <span class="divider"></span>
+      <button class="btn btn-solid pm-signout"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 17 5-5-5-5" /> <path d="M21 12H9" /> <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></svg> Sign out</button>
+      <span class="pm-version">Version 1.0.0</span>
+    </div>
+        </span>
       </div>
     </header>
     <nav class="app-sidebar" aria-label="Primary">
@@ -1362,7 +1446,8 @@ a.btn { text-decoration: none; }
       <a class="nav-item is-active" href="#view-overview" data-view="view-overview" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg><span class="nav-label">Overview</span></a>
       <a class="nav-item" href="#view-tickets" data-view="view-tickets"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /> <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></svg><span class="nav-label">Tickets</span></a>
       <a class="nav-item" href="#view-portals" data-view="view-portals"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></svg><span class="nav-label">Portals</span></a>
-      <a class="nav-item" href="#view-customers" data-view="view-customers"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg><span class="nav-label">Customers</span></a>
+      <a class="nav-item" href="#view-contacts" data-view="view-contacts"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg><span class="nav-label">Contacts</span></a>
+      <a class="nav-item" href="#view-organizations" data-view="view-organizations"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg><span class="nav-label">Organisations</span></a>
       <a class="nav-item" href="#view-reports" data-view="view-reports"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg><span class="nav-label">Reports</span></a>
       <a class="nav-item" href="#view-settings" data-view="view-settings"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg><span class="nav-label">Settings</span></a>
     </nav>
@@ -1948,9 +2033,9 @@ a.btn { text-decoration: none; }
           <header class="page-header row-between">
             <div>
               <h1>Portals</h1>
-              <p>Three active portals. Every ticket belongs to one of them.</p>
+              <p>Three active portals. Every ticket belongs to one of them, and each has its own request types and queues.</p>
             </div>
-            <button class="btn btn-solid"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> New portal</button>
+            <a class="btn btn-solid" href="#view-portal-new" data-view="view-portal-new"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Create portal</a>
           </header>
           <div class="stack-5">
             <div class="table-toolbar">
@@ -1984,31 +2069,307 @@ a.btn { text-decoration: none; }
           </div>
         </div>
       </div>
-      <div class="view" id="view-customers" hidden>
-      <div class="breadcrumbs"><a href="#">Service Desk</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Customers</span></div>
+      <div class="view" id="view-portal-new" data-parent="view-portals" hidden>
+      <div class="breadcrumbs"><a href="#">Service Desk</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Portals</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Create portal</span></div>
         <div class="content-body">
           <header class="page-header row-between">
             <div>
-              <h1>Customers</h1>
-              <p>Organisations raising tickets, and how much is open for each.</p>
+              <h1>Create a portal</h1>
+              <p>Pick a template, then configure the steps. You can change anything afterwards.</p>
             </div>
-            <button class="btn btn-solid"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add customer</button>
           </header>
           <div class="stack-5">
+
+            <section class="card">
+              <div class="wizard">
+              <div class="wz-step is-current">
+                <span class="wz-line"></span>
+                <span class="wz-dot">1</span>
+                <span class="wz-label">Space type</span>
+                <span class="wz-sub">Choose a template</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">2</span>
+                <span class="wz-label">Details</span>
+                <span class="wz-sub">Name and key</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">3</span>
+                <span class="wz-label">Workflow</span>
+                <span class="wz-sub">Configure statuses</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">4</span>
+                <span class="wz-label">Groups</span>
+                <span class="wz-sub">Organise teams</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">5</span>
+                <span class="wz-label">Request types</span>
+                <span class="wz-sub">Define what people can ask for</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">6</span>
+                <span class="wz-label">Queues</span>
+                <span class="wz-sub">Route requests</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">7</span>
+                <span class="wz-label">Settings</span>
+                <span class="wz-sub">Access and notifications</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">8</span>
+                <span class="wz-label">Review</span>
+                <span class="wz-sub">Check and create</span>
+              </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Start from a template</div>
+                  <div class="panel-sub">Templates pre-fill request types, statuses, and queues. You can change all of it later.</div>
+                </div>
+              </div>
+              <div class="radio-cards">
+                <label class="radio-card is-selected">
+                  <span class="row-center">
+                    <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /></svg></span>
+                    <span class="cell-stack flex-1">
+                      <span class="rc-title">IT Service Desk</span>
+                      <span class="rc-sub">Laptops, access, software, and incidents. Comes with 6 request types and 3 queues.</span>
+                    </span>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></svg>
+                  </span>
+                </label>
+                <label class="radio-card ">
+                  <span class="row-center">
+                    <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                    <span class="cell-stack flex-1">
+                      <span class="rc-title">HR Service Desk</span>
+                      <span class="rc-sub">Onboarding, benefits, and employee requests. Comes with 5 request types.</span>
+                    </span>
+                    
+                  </span>
+                </label>
+                <label class="radio-card ">
+                  <span class="row-center">
+                    <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></svg></span>
+                    <span class="cell-stack flex-1">
+                      <span class="rc-title">General Service Desk</span>
+                      <span class="rc-sub">Standard request types that suit any team.</span>
+                    </span>
+                    
+                  </span>
+                </label>
+                <label class="radio-card ">
+                  <span class="row-center">
+                    <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
+                    <span class="cell-stack flex-1">
+                      <span class="rc-title">Blank portal</span>
+                      <span class="rc-sub">Start from scratch. Nothing pre-configured.</span>
+                    </span>
+                    
+                  </span>
+                </label>
+              </div>
+
+              <div class="callout is-info mt-5">
+                <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg></span>
+                <span class="callout-body">Picking IT Service Desk sets up 6 request types and 3 queues.
+                Steps 4 to 7 are pre-filled, so you can skip straight to Review.</span>
+              </div>
+
+              <div class="wizard-actions">
+                <button class="btn btn-surface"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Cancel</button>
+                <span class="toolbar-spacer"></span>
+                <span class="wz-sub">Step 1 of 8</span>
+                <button class="btn btn-soft">Skip to review</button>
+                <button class="btn btn-solid">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-contacts" hidden>
+      <div class="breadcrumbs"><a href="#">Service Desk</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Contacts</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Contacts</h1>
+              <p>The people who raise tickets. Each one belongs to an organisation.</p>
+            </div>
+            <button class="btn btn-solid" data-dialog-open="dialog-contact"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add contact</button>
+          </header>
+          <div class="stack-5">
+
+            <div class="callout is-warning">
+              <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+              <span class="callout-body"><strong>1 contact is not linked to an organisation.</strong>
+              Unlinked contacts do not inherit an SLA or appear in customer reporting.</span>
+              <button class="btn btn-surface is-sm">Review</button>
+            </div>
+
             <div class="table-toolbar">
               <div class="search">
                 <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
-                <input class="input" placeholder="Search customers" aria-label="Search customers" />
+                <input class="input" placeholder="Search contacts" aria-label="Search contacts" />
               </div>
+              <span class="dropdown">All organisations <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
               <span class="toolbar-spacer"></span>
               <button class="btn btn-surface"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Export</button>
             </div>
+
             <div class="table-wrap">
               <table class="table">
                 <thead>
                   <tr>
-                    <th class="is-sortable">Customer <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                    <th class="is-sortable">Contact <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                    <th>Organisation</th>
+                    <th class="is-numeric is-sortable">Tickets <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                    <th>Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c1 cell-avatar">AR</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Alicia Reyes</a>
+                          <span class="cell-sub">alicia.reyes@northwind.com</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-info">Northwind Traders</span></td>
+                    <td class="is-numeric">6</td>
+                    <td class="cell-sub">May 27</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c3 cell-avatar">MK</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Meera Krishnan</a>
+                          <span class="cell-sub">meera.k@contoso.com</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-info">Contoso Ltd</span></td>
+                    <td class="is-numeric">4</td>
+                    <td class="cell-sub">May 5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c5 cell-avatar">TB</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Tom Baptiste</a>
+                          <span class="cell-sub">tom.baptiste@fabrikam.com</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-info">Fabrikam Inc</span></td>
+                    <td class="is-numeric">3</td>
+                    <td class="cell-sub">Apr 23</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c6 cell-avatar">DW</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Dana Whitfield</a>
+                          <span class="cell-sub">dana.w@adventure-works.com</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-info">Adventure Works</span></td>
+                    <td class="is-numeric">2</td>
+                    <td class="cell-sub">Apr 22</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c7 cell-avatar">SO</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Sam Okafor</a>
+                          <span class="cell-sub">sam.okafor@gmail.com</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td><span class="subtle">Not linked</span></td>
+                    <td class="is-numeric">1</td>
+                    <td class="cell-sub">Apr 19</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <div class="overlay" id="dialog-contact" hidden>
+            <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-c-title">
+              <div class="dialog-title" id="dlg-c-title">Add a contact</div>
+              <div class="field">
+                <label class="field-label" for="c-email">Email</label>
+                <input class="input" id="c-email" placeholder="name@company.com" />
+                <span class="field-hint">We match the domain to an organisation automatically.</span>
+              </div>
+              <div class="field">
+                <label class="field-label" for="c-name">Full name</label>
+                <input class="input" id="c-name" placeholder="Alicia Reyes" />
+              </div>
+              <div class="field">
+                <label class="field-label">Organisation</label>
+                <span class="dropdown">Northwind Traders <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              </div>
+              <div class="dialog-footer">
+                <button class="btn btn-surface" data-dialog-close>Cancel</button>
+                <button class="btn btn-solid">Add contact</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-organizations" hidden>
+      <div class="breadcrumbs"><a href="#">Service Desk</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Organisations</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Organisations</h1>
+              <p>Companies you support. The support plan here sets the SLA their tickets inherit.</p>
+            </div>
+            <button class="btn btn-solid" data-dialog-open="dialog-org"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add organisation</button>
+          </header>
+          <div class="stack-5">
+
+            <div class="table-toolbar">
+              <div class="search">
+                <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
+                <input class="input" placeholder="Search organisations" aria-label="Search organisations" />
+              </div>
+              <span class="dropdown">All plans <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+              <span class="toolbar-spacer"></span>
+              <button class="btn btn-surface"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Export</button>
+            </div>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="is-sortable">Organisation <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
                     <th>Plan</th>
+                    <th class="is-numeric">Contacts</th>
                     <th class="is-numeric is-sortable">Open <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
                     <th class="is-numeric is-sortable">Overdue <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
                   </tr>
@@ -2019,12 +2380,13 @@ a.btn { text-decoration: none; }
                       <span class="cell-person">
                         <span class="avatar c1 cell-avatar">NT</span>
                         <span class="cell-stack">
-                          <span class="cell-strong">Northwind Traders</span>
+                          <a class="cell-strong" href="#">Northwind Traders</a>
                           <span class="cell-sub">northwind.com</span>
                         </span>
                       </span>
                     </td>
                     <td><span class="badge is-info">Enterprise</span></td>
+                    <td class="is-numeric">6</td>
                     <td class="is-numeric">18</td>
                     <td class="is-numeric is-overdue">9</td>
                   </tr>
@@ -2033,12 +2395,13 @@ a.btn { text-decoration: none; }
                       <span class="cell-person">
                         <span class="avatar c3 cell-avatar">CL</span>
                         <span class="cell-stack">
-                          <span class="cell-strong">Contoso Ltd</span>
+                          <a class="cell-strong" href="#">Contoso Ltd</a>
                           <span class="cell-sub">contoso.com</span>
                         </span>
                       </span>
                     </td>
                     <td><span class="badge is-info">Enterprise</span></td>
+                    <td class="is-numeric">4</td>
                     <td class="is-numeric">12</td>
                     <td class="is-numeric is-overdue">6</td>
                   </tr>
@@ -2047,12 +2410,13 @@ a.btn { text-decoration: none; }
                       <span class="cell-person">
                         <span class="avatar c5 cell-avatar">FI</span>
                         <span class="cell-stack">
-                          <span class="cell-strong">Fabrikam Inc</span>
+                          <a class="cell-strong" href="#">Fabrikam Inc</a>
                           <span class="cell-sub">fabrikam.com</span>
                         </span>
                       </span>
                     </td>
                     <td><span class="badge is-neutral">Business</span></td>
+                    <td class="is-numeric">3</td>
                     <td class="is-numeric">7</td>
                     <td class="is-numeric is-overdue">4</td>
                   </tr>
@@ -2061,12 +2425,13 @@ a.btn { text-decoration: none; }
                       <span class="cell-person">
                         <span class="avatar c6 cell-avatar">AW</span>
                         <span class="cell-stack">
-                          <span class="cell-strong">Adventure Works</span>
+                          <a class="cell-strong" href="#">Adventure Works</a>
                           <span class="cell-sub">adventure-works.com</span>
                         </span>
                       </span>
                     </td>
                     <td><span class="badge is-neutral">Business</span></td>
+                    <td class="is-numeric">2</td>
                     <td class="is-numeric">4</td>
                     <td class="is-numeric is-overdue">3</td>
                   </tr>
@@ -2075,17 +2440,43 @@ a.btn { text-decoration: none; }
                       <span class="cell-person">
                         <span class="avatar c7 cell-avatar">TT</span>
                         <span class="cell-stack">
-                          <span class="cell-strong">Tailspin Toys</span>
+                          <a class="cell-strong" href="#">Tailspin Toys</a>
                           <span class="cell-sub">tailspintoys.com</span>
                         </span>
                       </span>
                     </td>
                     <td><span class="badge is-neutral">Starter</span></td>
+                    <td class="is-numeric">1</td>
                     <td class="is-numeric">3</td>
                     <td class="is-numeric is-overdue">2</td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+          </div>
+
+          <div class="overlay" id="dialog-org" hidden>
+            <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-o-title">
+              <div class="dialog-title" id="dlg-o-title">Add an organisation</div>
+              <div class="field">
+                <label class="field-label" for="o-name">Name</label>
+                <input class="input" id="o-name" placeholder="Northwind Traders" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="o-dom">Email domains</label>
+                <input class="input" id="o-dom" placeholder="northwind.com, northwind.co.uk" />
+                <span class="field-hint">Anyone writing in from these domains is linked to this organisation.</span>
+              </div>
+              <div class="field">
+                <label class="field-label">Support plan</label>
+                <span class="dropdown">Enterprise <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="field-hint">Sets the SLA targets applied to their tickets.</span>
+              </div>
+              <div class="dialog-footer">
+                <button class="btn btn-surface" data-dialog-close>Cancel</button>
+                <button class="btn btn-solid">Add organisation</button>
+              </div>
             </div>
           </div>
         </div>
@@ -2298,21 +2689,50 @@ a.btn { text-decoration: none; }
       var close = document.querySelector('[data-banner-close]');
       if (close) close.addEventListener('click', function () { this.closest('.app-banner').hidden = true; });
 
-      var appsBtn = document.querySelector('[data-apps-toggle]');
-      var appsPop = document.getElementById('appsPop');
-      if (appsBtn && appsPop) {
-        appsBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          appsPop.hidden = !appsPop.hidden;
-          appsBtn.setAttribute('aria-expanded', String(!appsPop.hidden));
-        });
-        document.addEventListener('click', function () {
-          appsPop.hidden = true; appsBtn.setAttribute('aria-expanded', 'false');
-        });
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') { appsPop.hidden = true; appsBtn.setAttribute('aria-expanded', 'false'); }
+      // Header popovers: profile menu and product switcher are mutually exclusive.
+      var pops = [
+        { btn: document.querySelector('[data-profile-toggle]'), pop: document.getElementById('profileMenu') },
+        { btn: document.querySelector('[data-prod-toggle]'),    pop: document.getElementById('prodMenu') }
+      ].filter(function (p) { return p.btn && p.pop; });
+
+      function closeAll(except) {
+        pops.forEach(function (p) {
+          if (p === except) return;
+          p.pop.hidden = true;
+          p.btn.setAttribute('aria-expanded', 'false');
         });
       }
+      pops.forEach(function (p) {
+        p.btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var willOpen = p.pop.hidden;
+          closeAll(p);
+          p.pop.hidden = !willOpen;
+          p.btn.setAttribute('aria-expanded', String(willOpen));
+        });
+      });
+      document.addEventListener('click', function () { closeAll(null); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+
+      // Modal dialogs: open from a CTA, close on Cancel, backdrop, or Esc.
+      function closeDialogs() {
+        document.querySelectorAll('.overlay').forEach(function (o) { o.hidden = true; });
+      }
+      document.querySelectorAll('[data-dialog-open]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          closeDialogs();
+          var d = document.getElementById(btn.getAttribute('data-dialog-open'));
+          if (d) d.hidden = false;
+        });
+      });
+      document.querySelectorAll('[data-dialog-close]').forEach(function (btn) {
+        btn.addEventListener('click', closeDialogs);
+      });
+      document.querySelectorAll('.overlay').forEach(function (o) {
+        o.addEventListener('click', function (e) { if (e.target === o) closeDialogs(); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDialogs(); });
 
       // SPA view switching. Only the active view renders, so one H1 holds.
       function show(id) {

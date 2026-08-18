@@ -1255,6 +1255,48 @@ a.btn { text-decoration: none; }
 .breadcrumbs a:hover { text-decoration: underline; }
 .app-tile { text-decoration: none; }
 
+/* ---- Header product switcher ------------------------------ */
+.prod-switch { border: 0; font-family: var(--font-base); cursor: pointer; }
+.prod-menu { width: 240px; padding: var(--space-1); }
+.prod-menu .list-item { justify-content: flex-start; }
+
+/* ---- Profile menu additions ------------------------------- */
+.profile-menu .pm-switch-hint { font-size: var(--fs-1); color: var(--fg-subtle); }
+.profile-menu .pm-signout { width: 100%; justify-content: center; }
+.profile-btn .pb-name { white-space: nowrap; }
+
+/* ---- Wizard stepper (portal creation) --------------------- */
+.wizard { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: var(--space-2); }
+.wz-step { flex: 1; min-width: 108px; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); position: relative; text-align: center; }
+.wz-line { position: absolute; top: 13px; left: 50%; right: -50%; height: 2px; background: var(--gray-4); }
+.wz-step:last-child .wz-line { display: none; }
+.wz-step.is-done .wz-line { background: var(--success-solid); }
+.wz-dot {
+  width: 26px; height: 26px; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-4); color: var(--fg-low);
+  font-size: var(--fs-1); font-weight: var(--weight-medium);
+  position: relative; z-index: 1;
+}
+.wz-step.is-done .wz-dot { background: var(--success-solid); color: var(--color-surface); }
+.wz-step.is-current .wz-dot { background: var(--accent-9); color: var(--accent-contrast); }
+.wz-label { font-size: var(--fs-2); color: var(--fg-low); }
+.wz-step.is-current .wz-label, .wz-step.is-done .wz-label { color: var(--fg-high); font-weight: var(--weight-medium); }
+.wz-sub { font-size: var(--fs-1); color: var(--fg-subtle); }
+.wizard-actions { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-5); padding-top: var(--space-4); border-top: var(--stroke-thin) solid var(--border-subtle); }
+
+/* ---- Dialog demo (shown inline in a static wireframe) ------ */
+.dialog-demo { position: relative; }
+.dialog-demo .overlay { position: absolute; border-radius: var(--radius-4); }
+.dialog-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+a.dropdown { text-decoration: none; }
+/* Badges inside a flex-column card must not stretch to full width. */
+.service-card .badge { align-self: flex-start; }
+
+/* rules.md 14: a stacked title + subtitle collapses onto one line unless the
+   spans are block. Bites .radio-card, whose spans are inline by default. */
+.radio-card .rc-title, .radio-card .rc-sub { display: block; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -1341,37 +1383,69 @@ a.btn { text-decoration: none; }
         <input class="input" placeholder="Search help articles and your requests" aria-label="Search help articles and your requests" />
       </div>
       <div class="header-right">
-        
-        <button class="icon-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg><span class="ic-badge">1</span></button>
         <span class="pop-anchor">
-          <button class="icon-btn" aria-label="Switch app" data-apps-toggle aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M3 9h18" /> <path d="M3 15h18" /> <path d="M9 3v18" /> <path d="M15 3v18" /></svg></button>
-          <div class="popover pop-below" id="appsPop" hidden>
-            <div class="app-launcher">
-            <a class="app-tile" href="index.html"><span class="at-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg></span> Agent console</a>
-            <a class="app-tile" href="portal.html"><span class="at-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="10" r="3" /> <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" /></svg></span> Customer portal</a>
+          <button class="dropdown prod-switch" data-prod-toggle aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg> Service Desk <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
+          </button>
+          <div class="popover pop-below prod-menu" id="prodMenu" hidden>
+            <div class="dropdown-menu">
+              <a class="list-item is-selected" href="#"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg> <span class="flex-1">Service Desk</span><span class="list-check"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span></a>
+              <a class="list-item" href="#"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg> <span class="flex-1">Workforce Lifecycle</span></a>
             </div>
           </div>
         </span>
+        <button class="icon-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg><span class="ic-badge">1</span></button>
         <button class="icon-btn" aria-label="Toggle theme" data-theme-toggle><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg></button>
         <span class="divider-v"></span>
-        <span class="header-user"><span class="avatar">YP</span><span>Yaswanthram Ponnada</span></span>
+        <span class="pop-anchor">
+          <button class="profile-btn" data-profile-toggle aria-expanded="false">
+            <span class="avatar">YP</span>
+            <span class="pb-name">Yaswanthram Ponnada</span>
+            <span class="pb-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
+          </button>
+          <div class="popover profile-menu pop-below" id="profileMenu" hidden>
+      <div class="pm-head">
+        <span class="avatar">YP</span>
+        <span class="pm-id">
+          <span class="pm-name">Yaswanthram Ponnada</span>
+          <span class="pm-email">yaswanthram.ponnada@skypoint.ai</span>
+          <a class="pm-viewprofile" href="#">View profile</a>
+        </span>
+      </div>
+      <span class="divider"></span>
+      <span class="divider"></span>
+      <div class="pm-field">
+        <label>Portal view</label>
+        <a class="dropdown" href="index.html">User portal <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5" /> <path d="m7 9 5-5 5 5" /></svg></span></a>
+        <span class="pm-switch-hint">Switch to the admin console</span>
+      </div>
+      <span class="divider"></span>
+      <a class="pm-item" href="#">Documentation <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Privacy portal <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Terms of use <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg></a>
+      <a class="pm-item" href="#">Feedback</a>
+      <span class="divider"></span>
+      <button class="btn btn-solid pm-signout"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 17 5-5-5-5" /> <path d="M21 12H9" /> <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></svg> Sign out</button>
+      <span class="pm-version">Version 1.0.0</span>
+    </div>
+        </span>
       </div>
     </header>
     <nav class="app-sidebar" aria-label="Primary">
       <button class="sidebar-toggle" aria-label="Collapse navigation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M9 3v18" /></svg></button>
-      <a class="nav-item is-active" href="#view-help" data-view="view-help" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></svg><span class="nav-label">Get help</span></a>
+      <a class="nav-item" href="#view-portals" data-view="view-portals"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></svg><span class="nav-label">Portals</span></a>
       <a class="nav-item" href="#view-requests" data-view="view-requests"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /> <path d="M13 5v2" /> <path d="M13 17v2" /> <path d="M13 11v2" /></svg><span class="nav-label">My requests</span></a>
       <a class="nav-item" href="#view-approvals" data-view="view-approvals"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" /> <path d="m9 11 3 3L22 4" /></svg><span class="nav-label">Approvals</span></a>
       <a class="nav-item" href="#view-kb" data-view="view-kb"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg><span class="nav-label">Knowledge base</span></a>
     </nav>
     <main class="app-content">
-      <div class="view" id="view-help" hidden>
-      <div class="breadcrumbs"><a href="#">Help centre</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Get help</span></div>
+      <div class="view" id="view-portals" hidden>
+      <div class="breadcrumbs"><a href="#">Help centre</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Portals</span></div>
         <div class="content-body">
           <header class="page-header row-between">
             <div>
-              <h1>Get help</h1>
-              <p>Raise a request, or find an answer without raising one.</p>
+              <h1>Portals</h1>
+              <p>Pick the team you need. Each portal has its own request types and response times.</p>
             </div>
           </header>
           <div class="stack-5">
@@ -1380,7 +1454,7 @@ a.btn { text-decoration: none; }
               <div class="panel-head">
                 <div>
                   <div class="panel-title">What do you need help with?</div>
-                  <div class="panel-sub">Search first. Many questions are answered in the knowledge base.</div>
+                  <div class="panel-sub">Search across every portal you can use, or pick one below.</div>
                 </div>
               </div>
               <div class="search portal-search">
@@ -1392,119 +1466,256 @@ a.btn { text-decoration: none; }
             <section>
               <div class="panel-head">
                 <div>
-                  <div class="panel-title">Common requests</div>
-                  <div class="panel-sub">Pick the closest match. You can add detail on the next step.</div>
+                  <div class="panel-title">Your portals</div>
+                  <div class="panel-sub">You have access to 3. Each team runs its own, with its own response times.</div>
                 </div>
               </div>
               <div class="service-grid">
-              <a class="card service-card" href="#view-request" data-view="view-request">
-                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" /> <path d="m21 2-9.6 9.6" /> <circle cx="7.5" cy="15.5" r="5.5" /></svg></span>
-                <span class="service-title">Reset a password</span>
-                <span class="service-desc">Regain access to your account or a connected app.</span>
-                <span class="service-meta">Usually within 1 hour</span>
+              <a class="card service-card" href="#view-portal" data-view="view-portal">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /></svg></span>
+                <span class="service-title">IT Support</span>
+                <span class="service-desc">Laptops, access, software, and anything that stops you working.</span>
+                <span class="service-meta">6 request types. Replies within 4 hours.</span>
+                <span class="badge is-info">2 open</span>
               </a>
-              <a class="card service-card" href="#view-request" data-view="view-request">
-                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /> <path d="M20.054 15.987H3.946" /></svg></span>
-                <span class="service-title">Request hardware</span>
-                <span class="service-desc">Laptop, monitor, headset, or a replacement part.</span>
-                <span class="service-meta">2 to 3 working days</span>
+              <a class="card service-card" href="#view-portal" data-view="view-portal">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                <span class="service-title">People and HR</span>
+                <span class="service-desc">Leave, payroll, benefits, and employment letters.</span>
+                <span class="service-meta">5 request types. Replies within 1 working day.</span>
+                <span class="badge is-info">1 open</span>
               </a>
-              <a class="card service-card" href="#view-request" data-view="view-request">
+              <a class="card service-card" href="#view-portal" data-view="view-portal">
                 <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg></span>
-                <span class="service-title">Install software</span>
-                <span class="service-desc">Ask for an application to be added to your machine.</span>
-                <span class="service-meta">Usually within 1 day</span>
-              </a>
-              <a class="card service-card" href="#view-request" data-view="view-request">
-                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
-                <span class="service-title">Report something broken</span>
-                <span class="service-desc">Something is not working and it is blocking you.</span>
-                <span class="service-meta">Triaged within 2 hours</span>
-              </a>
-              <a class="card service-card" href="#view-request" data-view="view-request">
-                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></span>
-                <span class="service-title">Request access</span>
-                <span class="service-desc">Access to a system, folder, or shared mailbox.</span>
-                <span class="service-meta">1 working day, may need approval</span>
-              </a>
-              <a class="card service-card" href="#view-request" data-view="view-request">
-                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></svg></span>
-                <span class="service-title">Something else</span>
-                <span class="service-desc">Not sure where it fits? Start here and we will route it.</span>
-                <span class="service-meta">Triaged within 4 hours</span>
+                <span class="service-title">Facilities</span>
+                <span class="service-desc">Desks, meeting rooms, passes, and building issues.</span>
+                <span class="service-meta">4 request types. Replies within 1 working day.</span>
+                
               </a>
               </div>
             </section>
 
-            <div class="split-2">
-              <section class="card">
-                <div class="panel-head">
-                  <div>
-                    <div class="panel-title">Answers that might save you a ticket</div>
-                    <div class="panel-sub">Based on what colleagues asked this week.</div>
-                  </div>
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Looking for a portal you cannot see?</div>
+                  <div class="panel-sub">Access is granted per team.</div>
                 </div>
-                <div class="kb-list">
-              <a class="kb-item" href="#view-kb" data-view="view-kb">
-                <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
-                <span class="cell-stack">
-                  <span class="kb-title">How to reset your Skypoint password</span>
-                  <span class="kb-meta">Read in 2 minutes, solves most sign in problems</span>
-                </span>
+              </div>
+              <p class="row-sub">If you need a portal that is not listed, ask your manager to request access,
+              or raise it in IT Support and we will route it.</p>
+            </section>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-portal" data-parent="view-portals" hidden>
+      <div class="breadcrumbs"><a href="#">Help centre</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Portals</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">IT Support</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>IT Support</h1>
+              <p>Laptops, access, software, and anything that stops you working.</p>
+            </div>
+          </header>
+          <div class="stack-5">
+
+            <div class="callout is-info">
+              <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg></span>
+              <span class="callout-body">IT Support replies within 4 hours on working days.
+              You have <strong>2 open requests</strong> in this portal.</span>
+              <a class="btn btn-surface is-sm" href="#view-requests" data-view="view-requests">View them <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a>
+            </div>
+
+            <section>
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">What do you need?</div>
+                  <div class="panel-sub">Pick the closest match. You can add detail on the next step.</div>
+                </div>
+              </div>
+              <div class="service-grid">
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" /> <path d="m21 2-9.6 9.6" /> <circle cx="7.5" cy="15.5" r="5.5" /></svg></span>
+                <span class="service-title">Reset a password</span>
+                <span class="service-desc">Regain access to your account or a connected app.</span>
+                <span class="service-meta">Usually within 1 hour</span>
+                
               </a>
-              <a class="kb-item" href="#view-kb" data-view="view-kb">
-                <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
-                <span class="cell-stack">
-                  <span class="kb-title">Connecting to the VPN from home</span>
-                  <span class="kb-meta">Read in 4 minutes</span>
-                </span>
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /> <path d="M20.054 15.987H3.946" /></svg></span>
+                <span class="service-title">Request hardware</span>
+                <span class="service-desc">Laptop, monitor, headset, or a replacement part.</span>
+                <span class="service-meta">2 to 3 working days</span>
+                <span class="badge is-warning">Needs approval</span>
               </a>
-              <a class="kb-item" href="#view-kb" data-view="view-kb">
-                <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
-                <span class="cell-stack">
-                  <span class="kb-title">What to do when an app will not open</span>
-                  <span class="kb-meta">Read in 3 minutes</span>
-                </span>
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg></span>
+                <span class="service-title">Install software</span>
+                <span class="service-desc">Ask for an application to be added to your machine.</span>
+                <span class="service-meta">Usually within 1 day</span>
+                <span class="badge is-warning">Needs approval</span>
               </a>
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                <span class="service-title">Report something broken</span>
+                <span class="service-desc">Something is not working and it is blocking you.</span>
+                <span class="service-meta">Triaged within 2 hours</span>
+                
+              </a>
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></span>
+                <span class="service-title">Request access</span>
+                <span class="service-desc">Access to a system, folder, or shared mailbox.</span>
+                <span class="service-meta">1 working day</span>
+                <span class="badge is-warning">Needs approval</span>
+              </a>
+              <a class="card service-card" href="#view-new-request" data-view="view-new-request">
+                <span class="service-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></svg></span>
+                <span class="service-title">Something else</span>
+                <span class="service-desc">Not sure where it fits? Start here and we will route it.</span>
+                <span class="service-meta">Triaged within 4 hours</span>
+                
+              </a>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Answers that might save you a request</div>
+                  <div class="panel-sub">From the IT Support knowledge base.</div>
+                </div>
+              </div>
+              <div class="kb-list">
+                <a class="kb-item" href="#view-kb" data-view="view-kb">
+                  <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
+                  <span class="cell-stack">
+                    <span class="kb-title">How to reset your Skypoint password</span>
+                    <span class="kb-meta">Read in 2 minutes, solves most sign in problems</span>
+                  </span>
+                </a>
+                <a class="kb-item" href="#view-kb" data-view="view-kb">
+                  <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
+                  <span class="cell-stack">
+                    <span class="kb-title">Connecting to the VPN from home</span>
+                    <span class="kb-meta">Read in 4 minutes</span>
+                  </span>
+                </a>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-new-request" data-parent="view-portals" hidden>
+      <div class="breadcrumbs"><a href="#">Help centre</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Portals</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">IT Support</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Request hardware</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Request hardware</h1>
+              <p>IT Support. Usually delivered in 2 to 3 working days.</p>
+            </div>
+          </header>
+          <div class="split-2">
+
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Tell us what you need</div>
+                  <div class="panel-sub">Five fields. We work out the rest.</div>
+                </div>
+              </div>
+
+              <div class="stack-4">
+                <div class="field">
+                  <label class="field-label" for="r-what">What do you need?</label>
+                  <input class="input" id="r-what" placeholder="Replacement laptop charger" />
+                  <span class="field-hint">A short summary. You can add detail below.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="r-detail">Any detail that would help</label>
+                  <textarea class="textarea" id="r-detail" rows="4"
+                    placeholder="What happened, when it started, and anything you have already tried."></textarea>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="r-where">Where are you?</label>
+                  <span class="dropdown">Bangalore office, desk 4B <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                  <span class="field-hint">So we know where to deliver or who to send.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Is this stopping you working?</label>
+                  <div class="radio-cards">
+                    <label class="radio-card is-selected">
+                      <span class="rc-title">No, I can carry on</span>
+                      <span class="rc-sub">Normal turnaround</span>
+                    </label>
+                    <label class="radio-card">
+                      <span class="rc-title">Yes, I am blocked</span>
+                      <span class="rc-sub">We look at it within 2 hours</span>
+                    </label>
+                  </div>
+                  <span class="field-hint">This sets the priority. You do not need to pick a level yourself.</span>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">Attachments</label>
+                  <button class="btn btn-surface"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></svg> Add a photo or file</button>
+                  <span class="field-hint">A photo of the problem usually speeds things up.</span>
+                </div>
+              </div>
+
+              <div class="wizard-actions">
+                <a class="btn btn-surface" href="#view-portal" data-view="view-portal"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Back</a>
+                <span class="toolbar-spacer"></span>
+                <button class="btn btn-solid"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg> Send request</button>
+              </div>
+            </section>
+
+            <aside class="stack-4">
+              <section class="card">
+                <div class="panel-head"><div class="panel-title">What happens next</div></div>
+                <div class="timeline">
+                  <div class="tl-item">
+                    <span class="tl-marker is-info"></span>
+                    <span class="cell-stack">
+                      <span class="tl-text">You get a reference number straight away</span>
+                      <span class="tl-time">Immediately</span>
+                    </span>
+                  </div>
+                  <div class="tl-item">
+                    <span class="tl-marker"></span>
+                    <span class="cell-stack">
+                      <span class="tl-text">IT Support picks it up and replies</span>
+                      <span class="tl-time">Within 4 working hours</span>
+                    </span>
+                  </div>
+                  <div class="tl-item">
+                    <span class="tl-marker"></span>
+                    <span class="cell-stack">
+                      <span class="tl-text">You can track it under My requests</span>
+                      <span class="tl-time">Any time</span>
+                    </span>
+                  </div>
                 </div>
               </section>
 
               <section class="card">
-                <div class="panel-head">
-                  <div>
-                    <div class="panel-title">Your open requests</div>
-                    <div class="panel-sub">3 in progress.</div>
-                  </div>
-                  <a class="btn btn-ghost is-sm" href="#view-requests" data-view="view-requests">View all <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a>
-                </div>
-                <div class="row-list">
-                  <a class="row-link" href="#view-request" data-view="view-request">
-                    <span class="sc-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /> <path d="M20.054 15.987H3.946" /></svg></span>
-                    <span class="cell-stack flex-1">
-                      <span class="row-title">Replacement laptop charger</span>
-                      <span class="row-sub">REQ-2291, raised 2 days ago</span>
+                <div class="panel-head"><div class="panel-title">Before you send</div></div>
+                <div class="kb-list">
+                  <a class="kb-item" href="#">
+                    <span class="kb-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></svg></span>
+                    <span class="cell-stack">
+                      <span class="kb-title">Looking after your laptop battery</span>
+                      <span class="kb-meta">Read in 3 minutes. Might answer this already.</span>
                     </span>
-                    <span class="badge is-info">In progress</span>
-                  </a>
-                  <a class="row-link" href="#view-request" data-view="view-request">
-                    <span class="sc-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></span>
-                    <span class="cell-stack flex-1">
-                      <span class="row-title">Access to the Finance shared drive</span>
-                      <span class="row-sub">REQ-2284, waiting on your manager</span>
-                    </span>
-                    <span class="badge is-warning">Needs approval</span>
-                  </a>
-                  <a class="row-link" href="#view-request" data-view="view-request">
-                    <span class="sc-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg></span>
-                    <span class="cell-stack flex-1">
-                      <span class="row-title">Install Figma on my machine</span>
-                      <span class="row-sub">REQ-2276, raised 5 days ago</span>
-                    </span>
-                    <span class="badge is-info">In progress</span>
                   </a>
                 </div>
               </section>
-            </div>
+            </aside>
 
           </div>
         </div>
@@ -1517,7 +1728,7 @@ a.btn { text-decoration: none; }
               <h1>My requests</h1>
               <p>3 open, 3 resolved. Everything you have asked us for.</p>
             </div>
-            <a class="btn btn-solid" href="#view-help" data-view="view-help"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> New request</a>
+            <a class="btn btn-solid" href="#view-portals" data-view="view-portals"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> New request</a>
           </header>
           <div class="stack-5">
 
@@ -1889,21 +2100,50 @@ a.btn { text-decoration: none; }
       var close = document.querySelector('[data-banner-close]');
       if (close) close.addEventListener('click', function () { this.closest('.app-banner').hidden = true; });
 
-      var appsBtn = document.querySelector('[data-apps-toggle]');
-      var appsPop = document.getElementById('appsPop');
-      if (appsBtn && appsPop) {
-        appsBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          appsPop.hidden = !appsPop.hidden;
-          appsBtn.setAttribute('aria-expanded', String(!appsPop.hidden));
-        });
-        document.addEventListener('click', function () {
-          appsPop.hidden = true; appsBtn.setAttribute('aria-expanded', 'false');
-        });
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') { appsPop.hidden = true; appsBtn.setAttribute('aria-expanded', 'false'); }
+      // Header popovers: profile menu and product switcher are mutually exclusive.
+      var pops = [
+        { btn: document.querySelector('[data-profile-toggle]'), pop: document.getElementById('profileMenu') },
+        { btn: document.querySelector('[data-prod-toggle]'),    pop: document.getElementById('prodMenu') }
+      ].filter(function (p) { return p.btn && p.pop; });
+
+      function closeAll(except) {
+        pops.forEach(function (p) {
+          if (p === except) return;
+          p.pop.hidden = true;
+          p.btn.setAttribute('aria-expanded', 'false');
         });
       }
+      pops.forEach(function (p) {
+        p.btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var willOpen = p.pop.hidden;
+          closeAll(p);
+          p.pop.hidden = !willOpen;
+          p.btn.setAttribute('aria-expanded', String(willOpen));
+        });
+      });
+      document.addEventListener('click', function () { closeAll(null); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+
+      // Modal dialogs: open from a CTA, close on Cancel, backdrop, or Esc.
+      function closeDialogs() {
+        document.querySelectorAll('.overlay').forEach(function (o) { o.hidden = true; });
+      }
+      document.querySelectorAll('[data-dialog-open]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          closeDialogs();
+          var d = document.getElementById(btn.getAttribute('data-dialog-open'));
+          if (d) d.hidden = false;
+        });
+      });
+      document.querySelectorAll('[data-dialog-close]').forEach(function (btn) {
+        btn.addEventListener('click', closeDialogs);
+      });
+      document.querySelectorAll('.overlay').forEach(function (o) {
+        o.addEventListener('click', function (e) { if (e.target === o) closeDialogs(); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDialogs(); });
 
       // SPA view switching. Only the active view renders, so one H1 holds.
       function show(id) {
