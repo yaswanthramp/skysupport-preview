@@ -23,13 +23,17 @@ Contacts, Organisations, Reports, Settings.
 Customer portal (7 views): Portals, one portal, New request, My requests, Request detail,
 Approvals, Knowledge base.
 
-Workforce Lifecycle, admin (13 views): Dashboard, People, Lifecycle, Start onboarding,
-Learning, Create workflow, Workflow detail, Access, Assets, Licences, Reports, Settings,
-Connect a portal.
+Workforce Lifecycle, admin (14 views): Dashboard, People, Lifecycle, Start onboarding,
+Engagement, Create workflow, Workflow detail, Recognise someone, Access, Assets, Licences,
+Reports, Settings, Connect a portal.
 
-Learning covers the training automation engine: a workflow catalogue, a rule builder with
-live match preview, deadline and email configuration, progress analytics with the four
-status stages, and the skyLearn course catalogue.
+Engagement holds two page-level tabs:
+
+- Learning: workflow catalogue, rule builder with live match preview, deadline and email
+  configuration, progress analytics across the four status stages, and the skyLearn catalogue.
+- Rewards and recognition: a recognition feed with company values, gift cards from Amazon,
+  Uber, Flipkart, Nykaa, and Swiggy with quarterly budget tracking, and certificate templates
+  with configured signatories.
 
 ## Scope
 

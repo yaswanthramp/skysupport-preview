@@ -1401,6 +1401,103 @@ a.dropdown { text-decoration: none; }
    and throws off row rhythm in dense tables. */
 .badge { white-space: nowrap; }
 
+/* ============================================================
+   Engagement: recognition, rewards, certificates
+   ============================================================ */
+
+/* Page-level tab bar sits above the secondary underline tabs. */
+.page-tabs { max-width: 460px; }
+
+/* ---- Recognition feed ------------------------------------- */
+.recog-item {
+  display: flex; gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.recog-item:first-child { border-top: 0; }
+.recog-avatars { display: flex; flex: 0 0 auto; }
+.recog-avatars .avatar { width: 32px; height: 32px; font-size: var(--fs-1); box-shadow: 0 0 0 2px var(--color-panel-solid); }
+.recog-avatars .avatar + .avatar { margin-left: -10px; }
+.recog-body { flex: 1; min-width: 0; }
+.recog-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-1); }
+.recog-who { font-size: var(--fs-2); color: var(--fg-high); }
+.recog-who strong { font-weight: var(--weight-medium); }
+.recog-time { font-size: var(--fs-1); color: var(--fg-subtle); }
+.recog-msg {
+  font-size: var(--fs-2); color: var(--fg-high); line-height: var(--lh-3);
+  background: var(--gray-2); border-radius: var(--radius-4);
+  padding: var(--space-3) var(--space-4); margin-top: var(--space-1);
+}
+.recog-attach { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.recog-react { display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+.recog-react button {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  border: 0; background: transparent; cursor: pointer; padding: 0;
+  font-family: var(--font-base); font-size: var(--fs-1); color: var(--fg-low);
+}
+.recog-react button:hover { color: var(--accent-11); }
+
+/* ---- Value / category chips ------------------------------- */
+.value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-3); }
+
+/* ---- Gift card providers ---------------------------------- */
+.gift-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
+.gift-card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  text-decoration: none; color: inherit;
+}
+.gift-card:hover { box-shadow: inset 0 0 0 1px var(--border-strong); }
+.gift-logo {
+  width: 100%; height: 64px; border-radius: var(--radius-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: var(--fs-4); font-weight: var(--weight-bold); letter-spacing: -0.01em;
+}
+.gift-logo.is-c1 { background: var(--chart-1); color: #fff; }
+.gift-logo.is-c2 { background: var(--chart-2); color: #fff; }
+.gift-logo.is-c3 { background: var(--chart-3); color: #fff; }
+.gift-logo.is-c4 { background: var(--chart-4); color: #fff; }
+.gift-logo.is-c5 { background: var(--chart-5); color: #fff; }
+.gift-name { font-size: var(--fs-2); font-weight: var(--weight-medium); color: var(--fg-high); }
+.gift-meta { font-size: var(--fs-1); color: var(--fg-subtle); }
+
+/* ---- Budget meter ----------------------------------------- */
+.budget { display: flex; align-items: baseline; gap: var(--space-2); }
+.budget-spent { font-size: var(--fs-7); font-weight: var(--weight-bold); color: var(--fg-high); line-height: 1; }
+.budget-of { font-size: var(--fs-2); color: var(--fg-low); }
+
+/* ---- Certificate template --------------------------------- */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+.cert-preview {
+  border-radius: var(--radius-3);
+  background: var(--gray-2);
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+}
+.cert-seal {
+  width: 40px; height: 40px; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent-3); color: var(--accent-11);
+}
+.cert-eyebrow { font-size: var(--fs-1); color: var(--fg-subtle); text-transform: uppercase; letter-spacing: .08em; }
+.cert-title { font-size: var(--fs-4); font-weight: var(--weight-bold); color: var(--fg-high); }
+.cert-name { font-size: var(--fs-3); color: var(--accent-11); font-weight: var(--weight-medium); }
+.cert-line { font-size: var(--fs-1); color: var(--fg-low); }
+.cert-signs { display: flex; gap: var(--space-5); margin-top: var(--space-3); justify-content: center; flex-wrap: wrap; }
+.cert-sign { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.cert-sign-rule { width: 96px; border-top: var(--stroke-thin) solid var(--border-ui); padding-top: var(--space-1); }
+.cert-sign-name { font-size: var(--fs-1); color: var(--fg-high); }
+.cert-sign-role { font-size: var(--fs-1); color: var(--fg-subtle); }
+
+/* ---- Signatory rows --------------------------------------- */
+.sign-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.sign-row:first-child { border-top: 0; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
