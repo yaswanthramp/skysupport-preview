@@ -1306,6 +1306,101 @@ a.dropdown { text-decoration: none; }
 /* ---- Tag row (roles on a department, attributes on an asset type) ---- */
 .tag-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
+/* ============================================================
+   Learning automation: rule builder, course list, progress
+   ============================================================ */
+
+/* ---- Rule / condition builder ----------------------------- */
+.rule-block {
+  border-radius: var(--radius-4);
+  background: var(--gray-2);
+  padding: var(--space-4);
+}
+.rule-block + .rule-block { margin-top: var(--space-3); }
+.rule-head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.rule-when {
+  display: inline-flex; align-items: center; height: 22px; padding: 0 var(--space-2);
+  border-radius: var(--radius-2); background: var(--accent-3); color: var(--accent-11);
+  font-size: var(--fs-1); font-weight: var(--weight-medium); text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.cond-row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: nowrap; }
+.cond-row .dropdown { min-width: 0; }
+.cond-row .dropdown:last-of-type { flex: 1; }
+.cond-remove { margin-left: auto; flex: 0 0 auto; }
+@media (max-width: 900px) { .cond-row { flex-wrap: wrap; } .cond-row .dropdown:last-of-type { flex: 1 1 100%; } }
+.cond-row + .cond-row { margin-top: var(--space-2); }
+.cond-join { font-size: var(--fs-1); color: var(--fg-subtle); text-transform: uppercase; letter-spacing: .04em; width: 32px; }
+.cond-remove { color: var(--fg-subtle); background: transparent; border: 0; cursor: pointer; display: inline-flex; padding: var(--space-1); border-radius: var(--radius-2); }
+.cond-remove:hover { background: var(--gray-4); color: var(--danger-text); }
+
+/* Live match preview beside the rule */
+.match-preview { display: flex; align-items: center; gap: var(--space-3); }
+.match-count { font-size: var(--fs-7); font-weight: var(--weight-bold); color: var(--fg-high); line-height: 1; }
+.match-faces { display: flex; }
+.match-faces .avatar {
+  width: 28px; height: 28px; font-size: var(--fs-1);
+  box-shadow: 0 0 0 2px var(--color-panel-solid);
+}
+.match-faces .avatar + .avatar { margin-left: -8px; }
+
+/* ---- Course list ------------------------------------------ */
+.course-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.course-row:first-child { border-top: 0; }
+.course-order {
+  width: 22px; height: 22px; border-radius: var(--radius-full); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-4); color: var(--fg-low);
+  font-size: var(--fs-1); font-weight: var(--weight-medium);
+}
+.course-meta { font-size: var(--fs-1); color: var(--fg-subtle); }
+.course-grip { color: var(--fg-subtle); cursor: grab; }
+
+/* ---- Notification / step rows ----------------------------- */
+.notif-row {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.notif-row:first-child { border-top: 0; }
+.notif-ic {
+  width: 32px; height: 32px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-3); color: var(--fg-low);
+}
+.notif-body { flex: 1; min-width: 0; }
+.notif-title { font-size: var(--fs-2); font-weight: var(--weight-medium); color: var(--fg-high); }
+.notif-sub { font-size: var(--fs-1); color: var(--fg-low); margin-top: 2px; }
+
+/* ---- Progress stage bar (segmented, one row) -------------- */
+.stage-bar { display: flex; height: 8px; border-radius: var(--radius-full); overflow: hidden; background: var(--gray-4); }
+.stage-seg { height: 100%; }
+.stage-seg.is-completed { background: var(--success-solid); }
+.stage-seg.is-progress  { background: var(--info-solid); }
+.stage-seg.is-notstarted{ background: var(--gray-8); }
+.stage-seg.is-overdue   { background: var(--danger-solid); }
+
+/* Inline mini progress inside a table cell */
+.cell-progress { display: flex; align-items: center; gap: var(--space-2); min-width: 140px; }
+.cell-progress .progress { flex: 1; }
+.cell-progress .cp-num { font-size: var(--fs-1); color: var(--fg-low); width: 34px; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- Connected-integration card --------------------------- */
+.integration { display: flex; align-items: center; gap: var(--space-4); }
+.integration-logo {
+  width: 44px; height: 44px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent-3); color: var(--accent-11);
+}
+
+/* A badge has a fixed height and line-height 1, so wrapping breaks it
+   and throws off row rhythm in dense tables. */
+.badge { white-space: nowrap; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -1455,6 +1550,7 @@ a.dropdown { text-decoration: none; }
       <a class="nav-item is-active" href="#view-dashboard" data-view="view-dashboard" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg><span class="nav-label">Dashboard</span></a>
       <a class="nav-item" href="#view-people" data-view="view-people"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg><span class="nav-label">People</span></a>
       <a class="nav-item" href="#view-lifecycle" data-view="view-lifecycle"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></svg><span class="nav-label">Lifecycle</span></a>
+      <a class="nav-item" href="#view-learning" data-view="view-learning"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /> <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /> <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /> <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></svg><span class="nav-label">Learning</span></a>
       <a class="nav-item" href="#view-access" data-view="view-access"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" /> <path d="m21 2-9.6 9.6" /> <circle cx="7.5" cy="15.5" r="5.5" /></svg><span class="nav-label">Access</span></a>
       <a class="nav-item" href="#view-assets" data-view="view-assets"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg><span class="nav-label">Assets</span></a>
       <a class="nav-item" href="#view-licenses" data-view="view-licenses"><svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></svg><span class="nav-label">Licenses</span></a>
@@ -2228,6 +2324,1008 @@ a.dropdown { text-decoration: none; }
                 </section>
               </aside>
             </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-learning" hidden>
+      <div class="breadcrumbs"><a href="#">Workforce Lifecycle</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Learning</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Learning</h1>
+              <p>Rules that assign training automatically, and how far everyone has got.</p>
+            </div>
+            <a class="btn btn-solid" href="#view-workflow-new" data-view="view-workflow-new"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Create workflow</a>
+          </header>
+          <div class="stack-5">
+
+            <div class="callout is-danger">
+              <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+              <span class="callout-body"><strong>23 people are past a training deadline</strong>,
+              and 41 assigned people have never signed in to skyLearn.</span>
+              <button class="btn btn-surface is-sm">Review overdue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+            </div>
+
+            <div class="tab-nav">
+              <a class="tab-nav-item is-active" href="#" data-tab="tab-wf">Workflows <span class="badge is-neutral">7</span></a>
+              <a class="tab-nav-item" href="#" data-tab="tab-prog">Progress <span class="badge is-danger">23</span></a>
+              <a class="tab-nav-item" href="#" data-tab="tab-courses">Courses <span class="badge is-neutral">8</span></a>
+            </div>
+
+            <div class="tab-panel" id="tab-wf">
+            <div class="table-toolbar">
+                <div class="search">
+                  <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
+                  <input class="input" placeholder="Search workflows" aria-label="Search workflows" />
+                </div>
+                <span class="dropdown">All statuses <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="dropdown">All targets <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="toolbar-spacer"></span>
+                <span class="row-sub">4 active, 1 paused, 1 draft, 1 archived</span>
+              </div>
+
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="is-sortable">Workflow <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                      <th>Applies to</th>
+                      <th class="is-numeric">Courses</th>
+                      <th>Due</th>
+                      <th class="is-numeric is-sortable">People <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                      <th>Completion</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">New caregiver onboarding</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Department</span>
+                          <span class="cell-sub">Department is Care & Nursing</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">6</td>
+                    <td class="cell-sub">7 days after start date</td>
+                    <td class="is-numeric">52</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-54"></div></div><span class="cp-num">54%</span></span>
+                    </td>
+                    <td><span class="badge is-success">Active</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for New caregiver onboarding"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">All staff compliance 2026</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Everyone</span>
+                          <span class="cell-sub">Everyone</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">4</td>
+                    <td class="cell-sub">Fixed, 30 September 2026</td>
+                    <td class="is-numeric">128</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-52"></div></div><span class="cp-num">52%</span></span>
+                    </td>
+                    <td><span class="badge is-success">Active</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for All staff compliance 2026"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">Food safety certification</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Department</span>
+                          <span class="cell-sub">Department is Dining Services</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">3</td>
+                    <td class="cell-sub">14 days after start date</td>
+                    <td class="is-numeric">21</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-67"></div></div><span class="cp-num">67%</span></span>
+                    </td>
+                    <td><span class="badge is-success">Active</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Food safety certification"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">California labour law</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Location</span>
+                          <span class="cell-sub">Location is California</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">2</td>
+                    <td class="cell-sub">30 days after start date</td>
+                    <td class="is-numeric">34</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-24"></div></div><span class="cp-num">24%</span></span>
+                    </td>
+                    <td><span class="badge is-success">Active</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for California labour law"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">Director leadership track</a>
+                        <span class="cell-sub">When role changes</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Role</span>
+                          <span class="cell-sub">Role contains Director</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">5</td>
+                    <td class="cell-sub">60 days after role change</td>
+                    <td class="is-numeric">9</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-22"></div></div><span class="cp-num">22%</span></span>
+                    </td>
+                    <td><span class="badge is-warning">Paused</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Director leadership track"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">Maintenance safety refresh</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Department</span>
+                          <span class="cell-sub">Department is Maintenance</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">2</td>
+                    <td class="cell-sub">Fixed, 15 October 2026</td>
+                    <td class="is-numeric"></td>
+                    <td>
+                      <span class="subtle">Not started</span>
+                    </td>
+                    <td><span class="badge is-neutral">Draft</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Maintenance safety refresh"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="cell-stack">
+                        <a class="cell-strong" href="#view-workflow" data-view="view-workflow">Nurse re-certification 2025</a>
+                        <span class="cell-sub">When someone joins</span>
+                      </span>
+                    </td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="sc-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></svg></span>
+                        <span class="cell-stack">
+                          <span class="row-title">Role</span>
+                          <span class="cell-sub">Role is Nurse (RN/LPN)</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="is-numeric">3</td>
+                    <td class="cell-sub">Fixed, 1 December 2025</td>
+                    <td class="is-numeric">14</td>
+                    <td>
+                      <span class="cell-progress"><div class="progress"><div class="progress-fill is-success pct-100"></div></div><span class="cp-num">100%</span></span>
+                    </td>
+                    <td><span class="badge is-neutral">Archived</span></td>
+                    <td><button class="btn btn-ghost is-sm is-icon" aria-label="Actions for Nurse re-certification 2025"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg></button></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="tab-prog" hidden>
+            <section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Across every live workflow</div>
+                    <div class="panel-sub">244 assignments to 5 workflows.</div>
+                  </div>
+                  <span class="dropdown">All workflows <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                </div>
+
+                <div class="stage-bar"><span class="stage-seg is-completed pct-48"></span><span class="stage-seg is-progress pct-25"></span><span class="stage-seg is-notstarted pct-17"></span><span class="stage-seg is-overdue pct-9"></span></div>
+                <div class="legend">
+                  <span class="legend-item"><span class="legend-dot is-success"></span> Completed 118</span>
+                  <span class="legend-item"><span class="legend-dot is-info"></span> In progress 62</span>
+                  <span class="legend-item"><span class="legend-dot is-neutral"></span> Not started 41</span>
+                  <span class="legend-item"><span class="legend-dot is-danger"></span> Overdue 23</span>
+                </div>
+              </section>
+
+              <div class="table-toolbar mt-5">
+                <div class="search">
+                  <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
+                  <input class="input" placeholder="Search people" aria-label="Search people" />
+                </div>
+                <span class="dropdown">All departments <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="dropdown">All locations <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="dropdown">All managers <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="dropdown">All statuses <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                <span class="toolbar-spacer"></span>
+                <button class="btn btn-surface"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Export</button>
+              </div>
+
+              <div class="callout is-info">
+                <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg></span>
+                <span class="callout-body">Select people to remind or extend in bulk.
+                <strong>41 have never signed in</strong>, which is usually a missing
+                welcome email rather than a missing course.</span>
+                <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Resend welcome</button>
+              </div>
+
+              <div class="table-wrap mt-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select all" /></label></th>
+                      <th class="is-sortable">Person <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                      <th>Assigned</th>
+                      <th>Status</th>
+                      <th>Progress</th>
+                      <th class="is-sortable">Due <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                      <th>Last activity</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Grace Adeyemi" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c1 cell-avatar">GA</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Grace Adeyemi</a>
+                          <span class="cell-sub">Care & Nursing</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">Caregiver essentials</td>
+                    <td><span class="badge is-info">In progress</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-success pct-50"></div></div>
+                        <span class="cp-num">3/6</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-neutral">Aug 26</span></td>
+                    <td class="cell-sub">2 hours ago</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Marcus Bell" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c3 cell-avatar">MB</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Marcus Bell</a>
+                          <span class="cell-sub">Dining Services</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">Food handling</td>
+                    <td><span class="badge is-neutral">Not started</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-success pct-0"></div></div>
+                        <span class="cp-num">0/3</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-neutral">Sep 5</span></td>
+                    <td class="cell-sub">Never signed in</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Priya Raman" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c5 cell-avatar">PR</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Priya Raman</a>
+                          <span class="cell-sub">Care & Nursing</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">Caregiver essentials</td>
+                    <td><span class="badge is-neutral">Not started</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-success pct-0"></div></div>
+                        <span class="cp-num">0/6</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-neutral">Aug 31</span></td>
+                    <td class="cell-sub">Never signed in</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Tom Whitaker" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c7 cell-avatar">TW</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Tom Whitaker</a>
+                          <span class="cell-sub">Care & Nursing</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">Caregiver essentials</td>
+                    <td><span class="badge is-danger">Overdue</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-danger pct-33"></div></div>
+                        <span class="cp-num">2/6</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-danger">Aug 14</span></td>
+                    <td class="cell-sub">6 days ago</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Ana Lucia Ortiz" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c6 cell-avatar">AO</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Ana Lucia Ortiz</a>
+                          <span class="cell-sub">Housekeeping & Laundry</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">All staff compliance</td>
+                    <td><span class="badge is-success">Completed</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-success pct-100"></div></div>
+                        <span class="cp-num">4/4</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-neutral">Sep 30</span></td>
+                    <td class="cell-sub">Yesterday</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Elena Vasquez" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c2 cell-avatar">EV</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Elena Vasquez</a>
+                          <span class="cell-sub">Care & Nursing</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">Leadership foundations</td>
+                    <td><span class="badge is-info">In progress</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-success pct-40"></div></div>
+                        <span class="cp-num">2/5</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-neutral">Oct 12</span></td>
+                    <td class="cell-sub">Today</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-check"><label class="checkbox"><input type="checkbox" aria-label="Select Bola Ogun" /></label></td>
+                    <td>
+                      <span class="cell-person">
+                        <span class="avatar c4 cell-avatar">BO</span>
+                        <span class="cell-stack">
+                          <a class="cell-strong" href="#">Bola Ogun</a>
+                          <span class="cell-sub">Administration</span>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="cell-sub">All staff compliance</td>
+                    <td><span class="badge is-danger">Overdue</span></td>
+                    <td>
+                      <span class="cell-progress">
+                        <div class="progress"><div class="progress-fill is-danger pct-25"></div></div>
+                        <span class="cp-num">1/4</span>
+                      </span>
+                    </td>
+                    <td><span class="badge is-danger">Aug 8</span></td>
+                    <td class="cell-sub">12 days ago</td>
+                    <td>
+                      <span class="row-center">
+                        <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind</button>
+                        <button class="btn btn-ghost is-sm">Extend</button>
+                      </span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="tab-courses" hidden>
+            <section class="card">
+                <div class="integration">
+                  <span class="integration-logo"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /> <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /> <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /> <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></svg></span>
+                  <span class="cell-stack flex-1">
+                    <span class="panel-title">skyLearn</span>
+                    <span class="panel-sub">Connected. Courses and completions sync every 15 minutes,
+                    last synced 6 minutes ago.</span>
+                  </span>
+                  <span class="badge is-success">Connected</span>
+                  <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></svg> Manage</button>
+                </div>
+              </section>
+
+              <div class="panel-head mt-5">
+                <div>
+                  <div class="panel-title">Bundles</div>
+                  <div class="panel-sub">Curated packages you can attach to a workflow in one go.</div>
+                </div>
+              </div>
+              <div class="card-grid">
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">Caregiver essentials</div>
+                      <div class="panel-sub">Six courses every caregiver takes in their first week.</div>
+                    </div>
+                    <span class="badge is-neutral">6 courses</span>
+                  </div>
+                  <div class="row-sub">4h 30m total. Assigned to 52 people.</div>
+                </section>
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">All staff compliance</div>
+                      <div class="panel-sub">Harassment, safety, privacy, and emergency procedure.</div>
+                    </div>
+                    <span class="badge is-neutral">4 courses</span>
+                  </div>
+                  <div class="row-sub">2h 15m total. Assigned to 128 people.</div>
+                </section>
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">Food handling</div>
+                      <div class="panel-sub">Safe preparation, allergens, and kitchen hygiene.</div>
+                    </div>
+                    <span class="badge is-neutral">3 courses</span>
+                  </div>
+                  <div class="row-sub">1h 45m total. Assigned to 21 people.</div>
+                </section>
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">Leadership foundations</div>
+                      <div class="panel-sub">For anyone stepping into a director role.</div>
+                    </div>
+                    <span class="badge is-neutral">5 courses</span>
+                  </div>
+                  <div class="row-sub">6h 00m total. Assigned to 9 people.</div>
+                </section>
+              </div>
+
+              <section class="card mt-5">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Individual courses</div>
+                    <div class="panel-sub">8 courses synced from skyLearn.</div>
+                  </div>
+                  <div class="search">
+                    <span class="search-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg></span>
+                    <input class="input" placeholder="Search courses" aria-label="Search courses" />
+                  </div>
+                </div>
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="is-sortable">Course <span class="th-sort"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4" /> <path d="M17 20V4" /> <path d="m3 8 4-4 4 4" /> <path d="M7 4v16" /></svg></span></th>
+                        <th>Category</th>
+                        <th>Length</th>
+                        <th class="is-numeric">Assigned</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td><span class="cell-strong">Resident dignity and rights</span></td>
+                      <td><span class="badge is-neutral">Care</span></td>
+                      <td class="cell-sub">45m</td>
+                      <td class="is-numeric">52</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Medication administration basics</span></td>
+                      <td><span class="badge is-neutral">Care</span></td>
+                      <td class="cell-sub">1h 10m</td>
+                      <td class="is-numeric">38</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Infection control</span></td>
+                      <td><span class="badge is-neutral">Care</span></td>
+                      <td class="cell-sub">35m</td>
+                      <td class="is-numeric">128</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Emergency evacuation procedure</span></td>
+                      <td><span class="badge is-neutral">Safety</span></td>
+                      <td class="cell-sub">30m</td>
+                      <td class="is-numeric">128</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Harassment prevention</span></td>
+                      <td><span class="badge is-neutral">Compliance</span></td>
+                      <td class="cell-sub">40m</td>
+                      <td class="is-numeric">128</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Data privacy and HIPAA</span></td>
+                      <td><span class="badge is-neutral">Compliance</span></td>
+                      <td class="cell-sub">25m</td>
+                      <td class="is-numeric">128</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">Safe food handling</span></td>
+                      <td><span class="badge is-neutral">Dining</span></td>
+                      <td class="cell-sub">50m</td>
+                      <td class="is-numeric">21</td>
+                    </tr>
+                    <tr>
+                      <td><span class="cell-strong">California meal and rest breaks</span></td>
+                      <td><span class="badge is-neutral">Compliance</span></td>
+                      <td class="cell-sub">30m</td>
+                      <td class="is-numeric">34</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-workflow-new" data-parent="view-learning" hidden>
+      <div class="breadcrumbs"><a href="#">Workforce Lifecycle</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Learning</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">Create workflow</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>Create a workflow</h1>
+              <p>Decide who gets training, what they take, when it is due, and what gets emailed.</p>
+            </div>
+          </header>
+          <div class="stack-5">
+
+            <section class="card">
+              <div class="wizard">
+              <div class="wz-step is-current">
+                <span class="wz-line"></span>
+                <span class="wz-dot">1</span>
+                <span class="wz-label">Targeting</span>
+                <span class="wz-sub">Who this applies to</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">2</span>
+                <span class="wz-label">Courses</span>
+                <span class="wz-sub">What they take</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">3</span>
+                <span class="wz-label">Deadlines</span>
+                <span class="wz-sub">When it is due</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">4</span>
+                <span class="wz-label">Notifications</span>
+                <span class="wz-sub">What gets emailed</span>
+              </div>
+              <div class="wz-step ">
+                <span class="wz-line"></span>
+                <span class="wz-dot">5</span>
+                <span class="wz-label">Review</span>
+                <span class="wz-sub">Check and activate</span>
+              </div>
+              </div>
+            </section>
+
+            <div class="split-2">
+              <section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Who should get this training?</div>
+                    <div class="panel-sub">Pick the event that starts it, then narrow down who it applies to.</div>
+                  </div>
+                </div>
+
+                <div class="rule-block">
+                  <div class="rule-head">
+                    <span class="rule-when">When</span>
+                    <span class="row-title">a lifecycle event happens</span>
+                  </div>
+                  <div class="radio-cards">
+                    <label class="radio-card is-selected">
+                      <span class="rc-title">Someone joins</span>
+                      <span class="rc-sub">Runs on their start date</span>
+                    </label>
+                    <label class="radio-card">
+                      <span class="rc-title">Someone changes role</span>
+                      <span class="rc-sub">Runs when the role field changes</span>
+                    </label>
+                    <label class="radio-card">
+                      <span class="rc-title">Someone moves department</span>
+                      <span class="rc-sub">Runs on the transfer date</span>
+                    </label>
+                    <label class="radio-card">
+                      <span class="rc-title">Manual only</span>
+                      <span class="rc-sub">You assign it yourself</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="rule-block">
+                  <div class="rule-head">
+                    <span class="rule-when">And</span>
+                    <span class="row-title">they match all of these</span>
+                  </div>
+
+                  <div class="cond-row">
+                    <span class="cond-join">If</span>
+                    <span class="dropdown">Department <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">is any of <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">Care &amp; Nursing, Dining Services <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="cond-row">
+                    <span class="cond-join">And</span>
+                    <span class="dropdown">Location <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">is <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">Bangalore campus <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+                  <div class="cond-row">
+                    <span class="cond-join">And</span>
+                    <span class="dropdown">Role <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">is not <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="dropdown">Director of Nursing <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <button class="cond-remove" aria-label="Remove condition"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+                  </div>
+
+                  <div class="composer-actions">
+                    <button class="btn btn-soft is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg> Add condition</button>
+                    <span class="toolbar-spacer"></span>
+                  </div>
+                </div>
+
+                <div class="rule-block">
+                  <div class="rule-head">
+                    <span class="rule-when">Plus</span>
+                    <span class="row-title">anyone you name directly</span>
+                  </div>
+                  <div class="cond-row">
+                    <span class="dropdown">Add a person <span class="dropdown-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span></span>
+                    <span class="row-sub">Overrides the conditions above.</span>
+                  </div>
+                </div>
+
+                <div class="wizard-actions">
+                  <a class="btn btn-surface" href="#view-learning" data-view="view-learning"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /></svg> Cancel</a>
+                  <span class="toolbar-spacer"></span>
+                  <span class="wz-sub">Step 1 of 5</span>
+                  <button class="btn btn-soft">Save as draft</button>
+                  <button class="btn btn-solid">Continue <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+                </div>
+              </section>
+
+              <aside class="stack-4">
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">Who this matches now</div>
+                      <div class="panel-sub">Updates as you change the rule.</div>
+                    </div>
+                  </div>
+                  <div class="match-preview">
+                    <span class="match-count">64</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">people today</span>
+                      <span class="row-sub">Plus anyone who joins and matches later.</span>
+                    </span>
+                  </div>
+                  <div class="match-faces mt-4">
+                    <span class="avatar c1 cell-avatar">GA</span>
+                    <span class="avatar c3 cell-avatar">MB</span>
+                    <span class="avatar c5 cell-avatar">PR</span>
+                    <span class="avatar c6 cell-avatar">AO</span>
+                    <span class="avatar c7 cell-avatar">TW</span>
+                    <span class="avatar is-neutral cell-avatar">+59</span>
+                  </div>
+                  <div class="callout is-warning mt-4">
+                    <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                    <span class="callout-body">18 of these already have a compliance workflow.
+                    They will get both unless you exclude them.</span>
+                  </div>
+                </section>
+
+                <section class="card">
+                  <div class="panel-head"><div class="panel-title">Overlap with other workflows</div></div>
+                  <div class="row-list">
+                    <div class="row-link">
+                      <span class="cell-stack flex-1">
+                        <span class="row-title">All staff compliance 2026</span>
+                        <span class="row-sub">18 people also matched</span>
+                      </span>
+                      <span class="badge is-warning">Overlap</span>
+                    </div>
+                    <div class="row-link">
+                      <span class="cell-stack flex-1">
+                        <span class="row-title">Food safety certification</span>
+                        <span class="row-sub">No people in common</span>
+                      </span>
+                      <span class="badge is-success">Clear</span>
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="view" id="view-workflow" data-parent="view-learning" hidden>
+      <div class="breadcrumbs"><a href="#">Workforce Lifecycle</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><a href="#">Learning</a><span class="crumb-sep"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></span><span class="current">New caregiver onboarding</span></div>
+        <div class="content-body">
+          <header class="page-header row-between">
+            <div>
+              <h1>New caregiver onboarding</h1>
+              <p>Department is Care & Nursing. 52 people assigned, due 7 days after start date.</p>
+            </div>
+            <button class="btn btn-solid"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> Edit workflow</button>
+          </header>
+          <div class="stack-5">
+
+            <div class="callout is-warning">
+              <span class="co-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+              <span class="callout-body"><strong>4 people are overdue on this workflow</strong>
+              and 6 have not started. Reminders are already going out.</span>
+              <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg> Remind the 4</button>
+            </div>
+
+            <div class="split-2">
+              <section class="card">
+                <div class="panel-head">
+                  <div>
+                    <div class="panel-title">Courses in order</div>
+                    <div class="panel-sub">Unlocked one after another. Day numbers count from the start date.</div>
+                  </div>
+                  <span class="segmented">
+                    <button class="segmented-item is-active">Sequential</button>
+                    <button class="segmented-item">All at once</button>
+                  </span>
+                </div>
+                <div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">1</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Resident dignity and rights</span>
+                      <span class="course-meta">Care, 45m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 2</span>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">2</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Infection control</span>
+                      <span class="course-meta">Care, 35m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 3</span>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">3</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Medication administration basics</span>
+                      <span class="course-meta">Care, 1h 10m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 5</span>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">4</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Emergency evacuation procedure</span>
+                      <span class="course-meta">Safety, 30m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 5</span>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">5</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Harassment prevention</span>
+                      <span class="course-meta">Compliance, 40m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 7</span>
+                  </div>
+                  <div class="course-row">
+                    <span class="course-grip"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="12" cy="5" r="1" /> <circle cx="12" cy="19" r="1" /></svg></span>
+                    <span class="course-order">6</span>
+                    <span class="cell-stack flex-1">
+                      <span class="row-title">Data privacy and HIPAA</span>
+                      <span class="course-meta">Compliance, 25m</span>
+                    </span>
+                    <span class="badge is-neutral">Due day 7</span>
+                  </div>
+                </div>
+              </section>
+
+              <aside class="stack-4">
+                <section class="card">
+                  <div class="panel-head"><div class="panel-title">Rule</div></div>
+                  <div class="data-list">
+                    <span class="dl-label">Trigger</span><span class="dl-value">When someone joins</span>
+                    <span class="dl-label">Applies to</span><span class="dl-value">Department is Care & Nursing</span>
+                    <span class="dl-label">Due</span><span class="dl-value">7 days after start date</span>
+                    <span class="dl-label">People</span><span class="dl-value">52</span>
+                    <span class="dl-label">Status</span><span class="dl-value"><span class="badge is-success">Active</span></span>
+                  </div>
+                  <div class="composer-actions">
+                    <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></svg> Edit rule</button>
+                    <button class="btn btn-ghost is-sm">Pause</button>
+                  </div>
+                </section>
+
+                <section class="card">
+                  <div class="panel-head">
+                    <div>
+                      <div class="panel-title">Progress</div>
+                      <div class="panel-sub">54% of 52 have finished.</div>
+                    </div>
+                  </div>
+                  <div class="stage-bar">
+                    <span class="stage-seg is-completed pct-54"></span>
+                    <span class="stage-seg is-progress pct-27"></span>
+                    <span class="stage-seg is-notstarted pct-12"></span>
+                    <span class="stage-seg is-overdue pct-8"></span>
+                  </div>
+                  <div class="legend">
+                    <span class="legend-item"><span class="legend-dot is-success"></span> Completed 28</span>
+                    <span class="legend-item"><span class="legend-dot is-info"></span> In progress 14</span>
+                    <span class="legend-item"><span class="legend-dot is-neutral"></span> Not started 6</span>
+                    <span class="legend-item"><span class="legend-dot is-danger"></span> Overdue 4</span>
+                  </div>
+                </section>
+              </aside>
+            </div>
+
+            <section class="card">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">Emails this workflow sends</div>
+                  <div class="panel-sub">Every message is previewable before you turn it on.</div>
+                </div>
+                <button class="btn btn-surface is-sm"><svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></svg> Preview emails</button>
+              </div>
+              <div>
+                <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Assignment email</span>
+                      <span class="notif-sub">Sent the moment the rule matches, with a sign-in link and the full course list.</span>
+                    </span>
+                    <label class="switch"><input type="checkbox" checked aria-label="Assignment email" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Reminder, 3 days before</span>
+                      <span class="notif-sub">Only to people who have not finished.</span>
+                    </span>
+                    <label class="switch"><input type="checkbox" checked aria-label="Reminder, 3 days before" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Reminder, on the due date</span>
+                      <span class="notif-sub">Only to people who have not finished.</span>
+                    </span>
+                    <label class="switch"><input type="checkbox" checked aria-label="Reminder, on the due date" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Overdue notice</span>
+                      <span class="notif-sub">To the person, and copied to their manager after 3 days overdue.</span>
+                    </span>
+                    <label class="switch"><input type="checkbox" checked aria-label="Overdue notice" /></label>
+                  </div>
+                  <div class="notif-row">
+                    <span class="notif-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></svg></span>
+                    <span class="notif-body">
+                      <span class="notif-title">Completion confirmation</span>
+                      <span class="notif-sub">A short well done, with a certificate attached.</span>
+                    </span>
+                    <label class="switch"><input type="checkbox"  aria-label="Completion confirmation" /></label>
+                  </div>
+              </div>
+            </section>
 
           </div>
         </div>

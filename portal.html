@@ -1306,6 +1306,101 @@ a.dropdown { text-decoration: none; }
 /* ---- Tag row (roles on a department, attributes on an asset type) ---- */
 .tag-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
+/* ============================================================
+   Learning automation: rule builder, course list, progress
+   ============================================================ */
+
+/* ---- Rule / condition builder ----------------------------- */
+.rule-block {
+  border-radius: var(--radius-4);
+  background: var(--gray-2);
+  padding: var(--space-4);
+}
+.rule-block + .rule-block { margin-top: var(--space-3); }
+.rule-head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.rule-when {
+  display: inline-flex; align-items: center; height: 22px; padding: 0 var(--space-2);
+  border-radius: var(--radius-2); background: var(--accent-3); color: var(--accent-11);
+  font-size: var(--fs-1); font-weight: var(--weight-medium); text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.cond-row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: nowrap; }
+.cond-row .dropdown { min-width: 0; }
+.cond-row .dropdown:last-of-type { flex: 1; }
+.cond-remove { margin-left: auto; flex: 0 0 auto; }
+@media (max-width: 900px) { .cond-row { flex-wrap: wrap; } .cond-row .dropdown:last-of-type { flex: 1 1 100%; } }
+.cond-row + .cond-row { margin-top: var(--space-2); }
+.cond-join { font-size: var(--fs-1); color: var(--fg-subtle); text-transform: uppercase; letter-spacing: .04em; width: 32px; }
+.cond-remove { color: var(--fg-subtle); background: transparent; border: 0; cursor: pointer; display: inline-flex; padding: var(--space-1); border-radius: var(--radius-2); }
+.cond-remove:hover { background: var(--gray-4); color: var(--danger-text); }
+
+/* Live match preview beside the rule */
+.match-preview { display: flex; align-items: center; gap: var(--space-3); }
+.match-count { font-size: var(--fs-7); font-weight: var(--weight-bold); color: var(--fg-high); line-height: 1; }
+.match-faces { display: flex; }
+.match-faces .avatar {
+  width: 28px; height: 28px; font-size: var(--fs-1);
+  box-shadow: 0 0 0 2px var(--color-panel-solid);
+}
+.match-faces .avatar + .avatar { margin-left: -8px; }
+
+/* ---- Course list ------------------------------------------ */
+.course-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.course-row:first-child { border-top: 0; }
+.course-order {
+  width: 22px; height: 22px; border-radius: var(--radius-full); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-4); color: var(--fg-low);
+  font-size: var(--fs-1); font-weight: var(--weight-medium);
+}
+.course-meta { font-size: var(--fs-1); color: var(--fg-subtle); }
+.course-grip { color: var(--fg-subtle); cursor: grab; }
+
+/* ---- Notification / step rows ----------------------------- */
+.notif-row {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.notif-row:first-child { border-top: 0; }
+.notif-ic {
+  width: 32px; height: 32px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-3); color: var(--fg-low);
+}
+.notif-body { flex: 1; min-width: 0; }
+.notif-title { font-size: var(--fs-2); font-weight: var(--weight-medium); color: var(--fg-high); }
+.notif-sub { font-size: var(--fs-1); color: var(--fg-low); margin-top: 2px; }
+
+/* ---- Progress stage bar (segmented, one row) -------------- */
+.stage-bar { display: flex; height: 8px; border-radius: var(--radius-full); overflow: hidden; background: var(--gray-4); }
+.stage-seg { height: 100%; }
+.stage-seg.is-completed { background: var(--success-solid); }
+.stage-seg.is-progress  { background: var(--info-solid); }
+.stage-seg.is-notstarted{ background: var(--gray-8); }
+.stage-seg.is-overdue   { background: var(--danger-solid); }
+
+/* Inline mini progress inside a table cell */
+.cell-progress { display: flex; align-items: center; gap: var(--space-2); min-width: 140px; }
+.cell-progress .progress { flex: 1; }
+.cell-progress .cp-num { font-size: var(--fs-1); color: var(--fg-low); width: 34px; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- Connected-integration card --------------------------- */
+.integration { display: flex; align-items: center; gap: var(--space-4); }
+.integration-logo {
+  width: 44px; height: 44px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent-3); color: var(--accent-11);
+}
+
+/* A badge has a fixed height and line-height 1, so wrapping breaks it
+   and throws off row rhythm in dense tables. */
+.badge { white-space: nowrap; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;

@@ -23,8 +23,13 @@ Contacts, Organisations, Reports, Settings.
 Customer portal (7 views): Portals, one portal, New request, My requests, Request detail,
 Approvals, Knowledge base.
 
-Workforce Lifecycle, admin (10 views): Dashboard, People, Lifecycle, Start onboarding,
-Access, Assets, Licences, Reports, Settings, Connect a portal.
+Workforce Lifecycle, admin (13 views): Dashboard, People, Lifecycle, Start onboarding,
+Learning, Create workflow, Workflow detail, Access, Assets, Licences, Reports, Settings,
+Connect a portal.
+
+Learning covers the training automation engine: a workflow catalogue, a rule builder with
+live match preview, deadline and email configuration, progress analytics with the four
+status stages, and the skyLearn course catalogue.
 
 ## Scope
 
