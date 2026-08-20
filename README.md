@@ -3,7 +3,7 @@
 Live preview:
 
 - Agent console: https://yaswanthramp.github.io/skysupport-preview/
-- Customer portal: https://yaswanthramp.github.io/skysupport-preview/portal.html
+- Employee Experience: https://yaswanthramp.github.io/skysupport-preview/portal.html
 - Workforce Lifecycle: https://yaswanthramp.github.io/skysupport-preview/workforce.html
 
 Switch product from the Service Desk / Workforce Lifecycle control in the header.
@@ -20,8 +20,12 @@ All figures are illustrative sample data.
 Agent console (9 views): Overview, Tickets, Ticket detail, Portals, Create portal,
 Contacts, Organisations, Reports, Settings.
 
-Customer portal (7 views): Portals, one portal, New request, My requests, Request detail,
-Approvals, Knowledge base.
+Employee Experience (12 views): Home, Requests, New request, Request detail, My Space,
+Learning, Schedule, Onboarding, Knowledge hub, My team, Notifications, Profile.
+
+The employee view covers Epic 3. skySupport shows status; where the action belongs to another
+application the card says so and deep links out, so skyLearn and skySchedule are never
+reimplemented.
 
 Workforce Lifecycle, admin (14 views): Dashboard, People, Lifecycle, Start onboarding,
 Engagement, Create workflow, Workflow detail, Recognise someone, Access, Assets, Licences,

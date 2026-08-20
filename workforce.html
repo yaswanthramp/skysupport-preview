@@ -1523,6 +1523,130 @@ a.dropdown { text-decoration: none; }
 }
 .gift-amounts { display: flex; gap: var(--space-2); flex-wrap: wrap; }
 
+/* ============================================================
+   Employee Experience (Epic 3)
+   ============================================================ */
+
+/* ---- Ownership boundary -----------------------------------
+   skySupport shows status. Where the action belongs to another
+   application, say so on the card rather than pretending. */
+.owned-by {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  height: 20px; padding: 0 var(--space-2); border-radius: var(--radius-2);
+  background: var(--gray-3); color: var(--fg-low);
+  font-size: var(--fs-1); font-weight: var(--weight-medium); white-space: nowrap;
+}
+.owned-by svg { width: 12px; height: 12px; }
+
+/* ---- Greeting / day header -------------------------------- */
+.day-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-4); }
+
+/* ---- Shift card ------------------------------------------- */
+.shift-now { display: flex; align-items: center; gap: var(--space-4); }
+.shift-time { font-size: var(--fs-6); font-weight: var(--weight-bold); color: var(--fg-high); line-height: 1; letter-spacing: var(--ls-6); }
+.shift-meta { font-size: var(--fs-2); color: var(--fg-low); }
+.shift-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) 0; border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.shift-row:first-child { border-top: 0; }
+.shift-day { width: 92px; flex: 0 0 auto; }
+.shift-day-name { font-size: var(--fs-2); color: var(--fg-high); font-weight: var(--weight-medium); }
+.shift-day-date { font-size: var(--fs-1); color: var(--fg-subtle); }
+.shift-row.is-off .shift-day-name { color: var(--fg-subtle); font-weight: var(--weight-regular); }
+
+/* ---- Announcements ---------------------------------------- */
+.announce {
+  display: flex; gap: var(--space-3); padding: var(--space-4) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.announce:first-child { border-top: 0; }
+.announce-ic {
+  width: 32px; height: 32px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-3); color: var(--fg-low);
+}
+.announce.is-pinned .announce-ic { background: var(--accent-3); color: var(--accent-11); }
+.announce-body { flex: 1; min-width: 0; }
+.announce-head { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; }
+.announce-title { font-size: var(--fs-2); font-weight: var(--weight-medium); color: var(--fg-high); }
+.announce-meta { font-size: var(--fs-1); color: var(--fg-subtle); }
+.announce-text { font-size: var(--fs-2); color: var(--fg-low); margin-top: var(--space-1); line-height: var(--lh-3); }
+
+/* ---- Asset and licence cards ------------------------------ */
+.thing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+.thing-card { display: flex; flex-direction: column; gap: var(--space-2); text-decoration: none; color: inherit; }
+.thing-card:hover { box-shadow: inset 0 0 0 1px var(--border-strong); }
+.thing-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2); }
+.thing-ic {
+  width: 36px; height: 36px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-3); color: var(--fg-low);
+}
+.thing-name { font-size: var(--fs-3); font-weight: var(--weight-medium); color: var(--fg-high); }
+.thing-tag { font-size: var(--fs-1); color: var(--fg-subtle); font-family: var(--font-mono); }
+.thing-meta { font-size: var(--fs-1); color: var(--fg-low); }
+.thing-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+
+/* ---- Course rows ------------------------------------------ */
+.course-item {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-4) 0; border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.course-item:first-child { border-top: 0; }
+.course-ic {
+  width: 36px; height: 36px; border-radius: var(--radius-3); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-3); color: var(--fg-low);
+}
+.course-item.is-overdue .course-ic { background: var(--danger-bg); color: var(--danger-text); }
+.course-item.is-done .course-ic { background: var(--success-bg); color: var(--success-text); }
+.course-main { flex: 1; min-width: 0; }
+.course-title { font-size: var(--fs-2); font-weight: var(--weight-medium); color: var(--fg-high); }
+.course-sub { font-size: var(--fs-1); color: var(--fg-low); margin-top: 2px; }
+.course-bar { margin-top: var(--space-2); max-width: 260px; }
+
+/* ---- Onboarding checklist --------------------------------- */
+.check-item {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-3) 0; border-top: var(--stroke-thin) solid var(--border-subtle);
+}
+.check-item:first-child { border-top: 0; }
+.check-mark {
+  width: 22px; height: 22px; border-radius: var(--radius-full); flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--gray-4); color: var(--fg-low);
+}
+.check-item.is-done .check-mark { background: var(--success-solid); color: var(--color-surface); }
+.check-item.is-waiting .check-mark { background: var(--warning-bg); color: var(--warning-text); }
+.check-body { flex: 1; min-width: 0; }
+.check-title { font-size: var(--fs-2); color: var(--fg-high); }
+.check-item.is-done .check-title { color: var(--fg-low); }
+.check-sub { font-size: var(--fs-1); color: var(--fg-subtle); margin-top: 2px; }
+
+/* ---- Notifications ---------------------------------------- */
+.notice {
+  display: flex; gap: var(--space-3); padding: var(--space-3) 0;
+  border-top: var(--stroke-thin) solid var(--border-subtle);
+  text-decoration: none; color: inherit;
+}
+.notice:first-child { border-top: 0; }
+.notice.is-unread .notice-title { font-weight: var(--weight-medium); }
+.notice-dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: transparent; margin-top: 7px; flex: 0 0 auto; }
+.notice.is-unread .notice-dot { background: var(--accent-9); }
+.notice-title { font-size: var(--fs-2); color: var(--fg-high); }
+.notice-meta { font-size: var(--fs-1); color: var(--fg-subtle); margin-top: 2px; }
+
+/* ---- Profile header --------------------------------------- */
+.profile-hero { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+.profile-hero .avatar { width: 56px; height: 56px; font-size: var(--fs-4); }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+
+/* ---- Knowledge hub ---------------------------------------- */
+.topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
+/* Header controls that become view links at runtime. */
+.is-linked { cursor: pointer; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
@@ -5608,6 +5732,16 @@ a.dropdown { text-decoration: none; }
         var el = document.querySelector('.app-content');
         if (el) el.scrollTop = 0;
       }
+      // Header shortcuts, only where the target view exists on this page.
+      [['[aria-label="Notifications"]', 'view-notifications'],
+       ['.pm-viewprofile', 'view-profile']].forEach(function (pair) {
+        var el = document.querySelector(pair[0]);
+        if (el && document.getElementById(pair[1])) {
+          el.setAttribute('data-view', pair[1]);
+          el.classList.add('is-linked');
+        }
+      });
+
       document.querySelectorAll('[data-view]').forEach(function (el) {
         el.addEventListener('click', function (e) {
           e.preventDefault();
