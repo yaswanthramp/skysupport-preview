@@ -1647,6 +1647,95 @@ a.dropdown { text-decoration: none; }
 /* Header controls that become view links at runtime. */
 .is-linked { cursor: pointer; }
 
+/* ============================================================
+   Shifts, modelled on skySchedule
+   ============================================================ */
+
+/* ---- List view -------------------------------------------- */
+.shift-group + .shift-group { margin-top: var(--space-5); }
+.shift-group-label { font-size: var(--fs-3); font-weight: var(--weight-bold); color: var(--fg-high); margin-bottom: var(--space-3); }
+.shift-card { display: flex; flex-direction: row; align-items: center; gap: var(--space-4); }
+.shift-card + .shift-card { margin-top: var(--space-3); }
+.shift-card-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.shift-card-top { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.shift-role { font-size: var(--fs-3); font-weight: var(--weight-medium); color: var(--fg-high); }
+.shift-line { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--fs-2); color: var(--fg-low); }
+.shift-line svg { color: var(--fg-subtle); }
+.shift-card-actions { display: flex; gap: var(--space-2); flex: 0 0 auto; }
+
+/* ---- Week grid -------------------------------------------- */
+.week-grid {
+  display: grid; grid-template-columns: 52px repeat(7, 1fr);
+  border-radius: var(--radius-4);
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
+  overflow: hidden;
+}
+.wk-head {
+  padding: var(--space-3) var(--space-2);
+  border-bottom: var(--stroke-thin) solid var(--border-subtle);
+  background: var(--gray-2);
+}
+.wk-head.is-today { background: var(--accent-3); }
+.wk-dow { font-size: var(--fs-1); color: var(--fg-subtle); text-transform: uppercase; letter-spacing: .04em; }
+.wk-date { font-size: var(--fs-4); font-weight: var(--weight-bold); color: var(--fg-high); }
+.wk-head.is-today .wk-date, .wk-head.is-today .wk-dow { color: var(--accent-11); }
+.wk-corner { border-bottom: var(--stroke-thin) solid var(--border-subtle); background: var(--gray-2); }
+.wk-hours { border-right: var(--stroke-thin) solid var(--border-subtle); }
+.wk-hour {
+  height: 34px; font-size: var(--fs-1); color: var(--fg-subtle);
+  padding-right: var(--space-2); text-align: right;
+  border-bottom: var(--stroke-thin) solid var(--border-subtle);
+}
+.wk-col { position: relative; border-right: var(--stroke-thin) solid var(--border-subtle); }
+.wk-col:last-child { border-right: 0; }
+.wk-col.is-today { background: var(--accent-2); }
+.wk-slot { height: 34px; border-bottom: var(--stroke-thin) solid var(--border-subtle); }
+.wk-shift {
+  position: absolute; left: 3px; right: 3px;
+  border-radius: var(--radius-3); padding: var(--space-2);
+  font-size: var(--fs-1); line-height: 1.35; overflow: hidden;
+}
+.wk-shift.is-accepted { background: var(--success-bg); color: var(--success-text); box-shadow: inset 0 0 0 1px var(--success-solid); }
+.wk-shift.is-pending  { background: var(--info-bg);    color: var(--info-text);    box-shadow: inset 0 0 0 1px var(--info-solid); }
+.wk-shift-time { font-weight: var(--weight-medium); }
+.wk-scroll { overflow-x: auto; }
+@media (max-width: 900px) { .week-grid { min-width: 720px; } }
+
+/* Shift block placement, generated so the markup stays class-only. */
+.wk-top-0 { top: 0px; }
+.wk-top-1 { top: 34px; }
+.wk-top-2 { top: 68px; }
+.wk-top-3 { top: 102px; }
+.wk-top-4 { top: 136px; }
+.wk-top-5 { top: 170px; }
+.wk-top-6 { top: 204px; }
+.wk-top-7 { top: 238px; }
+.wk-top-8 { top: 272px; }
+.wk-top-9 { top: 306px; }
+.wk-top-10 { top: 340px; }
+.wk-top-11 { top: 374px; }
+.wk-top-12 { top: 408px; }
+.wk-top-13 { top: 442px; }
+.wk-top-14 { top: 476px; }
+.wk-top-15 { top: 510px; }
+.wk-top-16 { top: 544px; }
+.wk-h-1 { height: 30px; }
+.wk-h-2 { height: 64px; }
+.wk-h-3 { height: 98px; }
+.wk-h-4 { height: 132px; }
+.wk-h-5 { height: 166px; }
+.wk-h-6 { height: 200px; }
+.wk-h-7 { height: 234px; }
+.wk-h-8 { height: 268px; }
+.wk-h-9 { height: 302px; }
+.wk-h-10 { height: 336px; }
+.wk-h-11 { height: 370px; }
+.wk-h-12 { height: 404px; }
+.wk-h-13 { height: 438px; }
+.wk-h-14 { height: 472px; }
+.wk-h-15 { height: 506px; }
+.wk-h-16 { height: 540px; }
+
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
   --gray-1:#111111; --gray-2:#191919; --gray-3:#222222; --gray-4:#2a2a2a;
